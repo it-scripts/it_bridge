@@ -118,3 +118,5 @@ Config.Menus = AUTO_DETECT
 ]]
 
 Config.Dispatches = AUTO_DETECT
+
+Config.VersionCheck = true
