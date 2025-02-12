@@ -5,4 +5,6 @@ function it.getItemCount(item)
     return lib.callback.await('it_lib:callback:getItemCount', item, false)
 end
 
-exports('getItemCount', it.getItemCount)
+exports('getItemCount', function(item)
+    return it.getItemCount(item)
+end)

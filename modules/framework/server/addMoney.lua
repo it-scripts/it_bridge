@@ -53,4 +53,6 @@ function it.addMoney(source, moneyType, amount, reason)
     return true
 end
 
-exports('addMoney', it.addMoney)
+exports('AddMoney', function(source, moneyType, amount, reason)
+    return it.addMoney(source, moneyType, amount, reason)
+end)

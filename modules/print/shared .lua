@@ -44,5 +44,3 @@ it.print = {
     verbose = function(...) libPrint(printLevel.verbose, ...) end,
     debug = function(...) libPrint(printLevel.debug, ...) end,
 }
-
-return it.print

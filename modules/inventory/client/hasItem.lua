@@ -8,4 +8,6 @@ function it.hasItem(item, amount, metadata)
     return lib.callback.await('it_lib:callback:hasItem', item, amount, metadata, false)
 end
 
-exports('hasItem', it.hasItem)
+exports('hasItem', function(item, amount, metadata)
+    return it.hasItem(item, amount, metadata)
+end)

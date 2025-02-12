@@ -46,4 +46,6 @@ function it.getMoney(source, moneyType)
     return 0
 end
 
-exports('getMoney', it.getMoney)
+exports('getMoney', function(source, moneyType)
+    return it.getMoney(source, moneyType)
+end)

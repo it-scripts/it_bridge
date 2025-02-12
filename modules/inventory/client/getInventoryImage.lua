@@ -3,4 +3,6 @@ function it.getInventoryImage(itemName)
     return imagePath
 end
 
-exports('getInventoryImage', it.getInventoryImage)
+exports('getInventoryImage', function(itemName)
+    return it.getInventoryImage(itemName)
+end)

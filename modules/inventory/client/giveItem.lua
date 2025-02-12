@@ -7,4 +7,6 @@ function it.giveItem(item, amount, metadata)
     return lib.callback.await('it_bridge:callback:giveItem', item, amount, metadata, false)
 end
 
-exports('giveItem', it.giveItem)
+exports('giveItem', function(item, amount, metadata)
+    return it.giveItem(item, amount, metadata)
+end)

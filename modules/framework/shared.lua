@@ -18,3 +18,11 @@ MoneyTypes = {
         [Framework.NDCore] = nil
     }
 }
+
+exports('getMoneyType', function(moneyType)
+    return MoneyTypes[moneyType][Config.Framework]
+end)
+
+exports('getMoneyTypes', function()
+    return MoneyTypes
+end)

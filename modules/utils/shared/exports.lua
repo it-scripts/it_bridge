@@ -1,30 +1,7 @@
-local function getServerFramework()
-    return it.framework
-end
-
-exports('getServerFramework', getServerFramework)
-
-local function getServerInventory()
-    return it.inventory
-end
-
-exports('getServerInventory', getServerInventory)
-
-
-local function getServerInteraction()
-    return it.interaction
-end
-
-exports('getServerInteraction', getServerInteraction)
-
-local function getServerNotification()
-    return it.notification
-end
-
-exports('getServerNotification', getServerNotification)
-
-local function getServerDispatch()
-    return it.dispatch
-end
-
-exports('getServerDispatch', getServerDispatch)
+exports('getServerFramework', function() return it.framework end)
+exports('getServerInventory', function() return it.inventory end)
+exports('getServerInteraction', function() return it.interaction end)
+exports('getServerNotify', function() return it.notify end)
+exports('getServerTextUI', function() return it.textUI end)
+exports('getServerMenu', function() return it.menu end)
+exports('getServerDisptach', function() return it.dispatch end)

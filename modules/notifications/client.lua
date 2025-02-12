@@ -1,4 +1,4 @@
-function it.notify(title, msg, time, type, sound)
+function it.sendNotification(title, msg, time, type, sound)
     type = Config.NotificationsSettings[type] or Config.NotificationsSettings.Info
 
     if it.notify == Notifications.BRUTAL then
@@ -25,4 +25,8 @@ end
 
 RegisterNetEvent('it_lib:client:notify', function(title, msg, time, type, sound)
     it.notify(title, msg, time, type, sound)
+end)
+
+exports('sendNotification', function(title, msg, time, type, sound)
+    it.sendNotification(title, msg, time, type, sound)
 end)

@@ -43,4 +43,6 @@ function it.createUsableItems(itemName, cb)
     it.print.error('Failed to create usable item: ' .. itemName)
 end
 
-exports('createUsableItems', it.createUsableItems)
+exports('createUsableItems', function(itemName, cb)
+    it.createUsableItems(itemName, cb)
+end)

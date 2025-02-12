@@ -35,4 +35,6 @@ function it.getPlayerByCitizenId(citizenId)
     return nil
 end
 
-exports('getPlayerByCitizenId', it.getPlayerByCitizenId)
+exports('getPlayerByCitizenId', function(citizenId)
+    return it.getPlayerByCitizenId(citizenId)
+end)

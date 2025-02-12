@@ -66,7 +66,6 @@ Config.Interactions = AUTO_DETECT
 ]]
 Config.Phones = AUTO_DETECT
 
-
 --[[
     Supported Notify resources:
         * AUTO_DETECT: auto-detect Notify resource

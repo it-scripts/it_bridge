@@ -34,4 +34,6 @@ function it.getPlayers()
     return nil
 end
 
-exports('getPlayers', it.getPlayers)
+exports('getPlayers', function()
+    return it.getPlayers()
+end)

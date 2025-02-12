@@ -5,4 +5,6 @@ function it.getItemLabel(itemName)
     return lib.callback.await('it_lib:callback:getItemLabel', itemName, false)
 end
 
-exports('getItemLabel', it.getItemLabel)
+exports('getItemLabel', function(itemName)
+    return it.getItemLabel(itemName)
+end)

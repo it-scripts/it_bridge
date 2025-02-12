@@ -61,4 +61,6 @@ lib.callback.register('it_bridge:callback:giveItem', function(source, item, amou
     return it.giveItem(source, item, amount, metadata)
 end)
 
-exports('GiveItem', it.giveItem)
+exports('GiveItem', function(source, item, amount, metadata)
+    return it.giveItem(source, item, amount, metadata)
+end)
