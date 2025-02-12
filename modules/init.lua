@@ -13,6 +13,7 @@ cache = {
     version = GetResourceMetadata(it.name, 'version', 0),
 }
 
+STANDALONE = 'standalone'
 AUTO_DETECT = 'auto-detect'
 
 -- Functions to detect the config values
@@ -141,7 +142,6 @@ Inventories = {
     ORIGEN = 'origen-inventory',
 }
 
---- @param inventory AUTO_DETECT | Inventories.ESX | Inventories.QB | Inventories.PS | Inventories.QS | Inventories.OX | Inventories.CODEM | Inventories.ORIGEN
 --- @return table | nil
 local function detectInventory()
     local function detectESX()
@@ -306,7 +306,6 @@ Interactions = {
     NONE = 'none',
 }
 
---- @param interactions AUTO_DETECT | Interactions.OX | Interactions.QB | Interactions.MV | Interactions.NONE
 --- @return table | nil
 local function detectInteractions()
     local function detectOX()
@@ -403,7 +402,6 @@ Notifications = {
     OKOK = 'okokNotify',
 }
 
---- @param notify AUTO_DETECT | Notifications.BRUTAL | Notifications.PNOTIFY | Notifications.OX | Notifications.ESX_NOTIFY | Notifications.QBCORE | Notifications.ESX | Notifications.MYTHIC | Notifications.OKOK
 --- @return table | nil
 local function detectNotify()
     local function detectBRUTAL()
@@ -586,7 +584,6 @@ Menus = {
     QB = 'qb-menu',
 }
 
---- @param menu AUTO_DETECT | Menus.ESX_CONTEXT | Menus.OX | Menus.QB
 --- @return table | nil
 local function detectMenu()
     local function detectESX_CONTEXT()
@@ -679,7 +676,6 @@ Dispatches = {
     ORIGEN = 'origen_police',
 }
 
---- @param dispatch Dispatches.QS | Dispatches.PS | Dispatches.CD | Dispatches.CORE | Dispatches.CODEM | Dispatches.LOVE_SCRIPTS | Dispatches.ORIGEN
 --- @return table | nil
 local function detectDispatch()
     local function detectQS()

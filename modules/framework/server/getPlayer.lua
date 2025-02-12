@@ -35,4 +35,4 @@ function it.getPlayer(source)
     return nil
 end
 
-return it.getPlayer
+exports('getPlayer', it.getPlayer)

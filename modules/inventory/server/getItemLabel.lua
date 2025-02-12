@@ -52,4 +52,4 @@ lib.callback.register('it_bridge:callback:getItemLabel', function(itemName)
     return it.getItemLabel(itemName)
 end)
 
-return it.getItemLabel
+exports('getItemLabel', it.getItemLabel)

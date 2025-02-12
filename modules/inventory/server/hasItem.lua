@@ -71,4 +71,4 @@ lib.callback.register('it_lib:callback:hasItem', function(source, item, amount, 
     return it.hasItem(source, item, amount, medatadata)
 end)
 
-return it.hasItem
+exports('HasItem', it.hasItem)

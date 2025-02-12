@@ -12,22 +12,15 @@ dependencies {
     '/onesync',
 }
 
-files {
-    'init.lua',
-    'modules/**/client.lua',
-    'modules/**/client/*.lua',
-    'modules/**/server.lua',
-    'modules/**/server/*.lua',
-}
-
 shared_script 'modules/init.lua'
 
 shared_scripts {
+    'config.lua',
     'resource/**/shared.lua',
-    -- 'resource/**/shared/*.lua'
+    'resource/**/shared/*.lua'
 }
 
---[[ client_scripts {
+lient_scripts {
     'modules/**/client.lua',
     'modules/**/client/*.lua'
 }
@@ -35,4 +28,9 @@ shared_scripts {
 server_scripts {
     'modules/**/server.lua',
     'modules/**/server/*.lua',
-} ]]
+}
+
+escrow_ignore {
+    'framework/server/shared.lua',
+    'config.lua'
+  }

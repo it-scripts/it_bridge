@@ -4,4 +4,4 @@ function it.canCarryItem(item)
     return lib.callback.await('it_lib:callback:canCarryItem', item, false)
 end
 
-return it.canCarryItem
+exports('canCarryItem', it.canCarryItem)

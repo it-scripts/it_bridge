@@ -71,4 +71,4 @@ function it.getPlayerJob(player)
     return nil
 end
 
-return it.getPlayerJob
+exports('getPlayerJob', it.getPlayerJob)

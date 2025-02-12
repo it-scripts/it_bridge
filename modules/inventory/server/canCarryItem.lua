@@ -54,4 +54,4 @@ lib.callback.register('it_lib:callback:canCarryItem', function(source, item, amo
     return it.canCarryItem(source, item, amount)
 end)
 
-return it.canCarryItem
+exports('canCarryItem', it.canCarryItem)

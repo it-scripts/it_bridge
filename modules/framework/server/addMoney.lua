@@ -7,34 +7,13 @@ function it.addMoney(source, moneyType, amount, reason)
         return
     end
 
-    local moneyTypes = {
-        ['cash'] = {
-            [Framework.ESX] = 'money',
-            [Framework.QBCore] = 'cash',
-            [Framework.QBOX] = 'cash',
-            [Framework.NDCore] = 'cash'
-        },
-        ['bank'] = {
-            [Framework.ESX] = 'bank',
-            [Framework.QBCore] = 'bank',
-            [Framework.QBOX] = 'bank',
-            [Framework.NDCore] = 'bank'
-        },
-        ['black_money'] = {
-            [Framework.ESX] = 'black_money',
-            [Framework.QBCore] = 'crypto',
-            [Framework.QBOX] = 'crypto',
-            [Framework.NDCore] = nil
-        }
-    }
-
-    if not moneyTypes[moneyType] then
+    if not MoneyTypes[moneyType] then
         it.print.error("Invalid money type: " .. moneyType)
         return
     end
 
     if it.framework == Framework.ESX then
-        local moneyType = moneyTypes[moneyType][Framework.ESX]
+        local moneyType = MoneyTypes[moneyType][Framework.ESX]
         local currentMoney = Player.getAccount(moneyType).money
         Player.addAccountMoney(moneyType, amount)
         local newMoney = Player.getAccount(moneyType).money
@@ -45,7 +24,7 @@ function it.addMoney(source, moneyType, amount, reason)
     end
 
     if it.framework == Framework.QBCore then
-        local moneyType = moneyTypes[moneyType][Framework.QBCore]
+        local moneyType = MoneyTypes[moneyType][Framework.QBCore]
         local success = Player.Functions.AddMoney(moneyType, amount, reason)
         if not success then
             it.print.error("Failed to add money to player: " .. source)
@@ -54,7 +33,7 @@ function it.addMoney(source, moneyType, amount, reason)
     end
 
     if it.framework == Framework.QBOX then
-        local moneyType = moneyTypes[moneyType][Framework.QBOX]
+        local moneyType = MoneyTypes[moneyType][Framework.QBOX]
         local success = exports.qbx_core:AddMoney(source, moneyType, amount, reason)
         if not success then
             it.print.error("Failed to add money to player: " .. source)
@@ -63,7 +42,7 @@ function it.addMoney(source, moneyType, amount, reason)
     end
 
     if it.framework == Framework.NDCore then
-        local moneyType = moneyTypes[moneyType][Framework.NDCore]
+        local moneyType = MoneyTypes[moneyType][Framework.NDCore]
         local success = Player.addMoney(moneyType, amount, reason)
         if not success then
             it.print.error("Failed to add money to player: " .. source)
@@ -74,4 +53,4 @@ function it.addMoney(source, moneyType, amount, reason)
     return true
 end
 
-return it.addMoney
+exports('addMoney', it.addMoney)

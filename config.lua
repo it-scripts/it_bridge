@@ -112,7 +112,6 @@ Config.Menus = AUTO_DETECT
         * Dispatches.QS, qs-dispatch
         * Dispatches.PS, ps-dispatch
         * Dispatches.CD, cd_disaptch
-        * Dispatches.CORE, core_dispatch
         * Dispatches.CODEM, codem_dispatch
         * Dispatches.LOVE_SCRIPTS, emergency_dispatch
         * Dispatches.ORIGEN, origen_police

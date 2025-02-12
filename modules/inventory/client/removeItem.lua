@@ -7,4 +7,4 @@ function it.removeItem(item, amount, metadata)
     return lib.callback.await('it_bridge:callback:removeItem', item, amount, metadata, false)
 end
 
-return it.removeItem
+exports('removeItem', it.removeItem)

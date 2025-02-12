@@ -55,4 +55,4 @@ lib.callback.register('it_bridge:callback:getItemCount', function(source, item, 
     return it.getItemCount(source, item, metadata)
 end)
 
-return it.getItemCount
+exports('getItemCount', it.getItemCount)

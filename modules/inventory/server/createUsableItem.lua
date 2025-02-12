@@ -43,4 +43,4 @@ function it.createUsableItems(itemName, cb)
     it.print.error('Failed to create usable item: ' .. itemName)
 end
 
-return it.createUsableItems
+exports('createUsableItems', it.createUsableItems)

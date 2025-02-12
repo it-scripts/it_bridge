@@ -61,4 +61,4 @@ lib.callback.register('it_bridge:callback:removeItem', function(source, item, am
     return it.removeItem(source, item, amount, metadata)
 end)
 
-return it.removeItem
+exports('RemoveItem', it.removeItem)

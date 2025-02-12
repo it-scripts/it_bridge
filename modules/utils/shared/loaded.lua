@@ -5,4 +5,4 @@ function it.hasLoaded()
     return false
 end
 
-return it.hasLoaded()
+exports('hasLoaded', it.hasLoaded)
