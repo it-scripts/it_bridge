@@ -5,27 +5,27 @@ games {'gta5'}
 
 name 'it_bridge'
 author '@allroundjonu'
-version '1.0.0'
+version 'v1.0.0'
 
-dependencies {
-    '/server:7290',
-    '/onesync',
-}
-
-shared_script 'modules/init.lua'
+identifier 'it_bridge'
 
 shared_scripts {
+    '@ox_lib/init.lua',
+    'modules/variables.lua',
     'config.lua',
-    'resource/**/shared.lua',
-    'resource/**/shared/*.lua'
+    'modules/print/shared.lua',
+    'modules/init.lua',
+    'modules/**/shared.lua',
+    'modules/**/shared/*.lua'
 }
 
-lient_scripts {
+client_scripts {
     'modules/**/client.lua',
     'modules/**/client/*.lua'
 }
 
 server_scripts {
+    'modules/versionCheck.lua',
     'modules/**/server.lua',
     'modules/**/server/*.lua',
 }
@@ -33,4 +33,10 @@ server_scripts {
 escrow_ignore {
     'framework/server/shared.lua',
     'config.lua'
-  }
+}
+
+dependencies {
+    '/server:7290',
+    '/onesync',
+    'ox_lib'
+}
