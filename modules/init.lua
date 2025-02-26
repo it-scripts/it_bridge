@@ -32,11 +32,8 @@ local function detectFramework()
 
     local function detectQBOX()
         if GetResourceState('qbx_core') == 'started' then
-            local qbox = exports['qbx_core']:GetCoreObject()
-            if qbox then
-                it.framework = Framework.QBOX
-                return qbox
-            end
+            it.framework = Framework.QBOX
+            return Framework.QBOX
         end
     end
 
@@ -51,7 +48,7 @@ local function detectFramework()
     end
 
     if Config.Framework == AUTO_DETECT then
-        local core = detectESX() or detectQBCore() or detectQBOX() or detectNDCore() or STANDALONE
+        local core = detectQBOX() or detectNDCore() or detectESX() or detectQBCore() or STANDALONE
         if core == STANDALONE then
             it.print.warn('[it_bridge] No framework was detected, you will need to integrate it!')
             return

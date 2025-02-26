@@ -5,7 +5,7 @@ games {'gta5'}
 
 name 'it_bridge'
 author '@allroundjonu'
-version 'v1.0.0'
+version '1.0.0'
 
 identifier 'it_bridge'
 
@@ -31,7 +31,7 @@ server_scripts {
 }
 
 escrow_ignore {
-    'framework/server/shared.lua',
+    'framework/shared.lua',
     'config.lua'
 }
 
