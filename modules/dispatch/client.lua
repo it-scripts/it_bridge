@@ -44,6 +44,6 @@ end
 
 RegisterNetEvent('it_bridge:client:sendDispatch', it.sendDisptach)
 
-exports('sendDisptach', function(disptachData)
+exports('SendDisptach', function(disptachData)
     it.sendDisptach(disptachData)
 end)

@@ -69,18 +69,18 @@ function it.sendDisptach(playerId, disptachData)
             text = disptachData.message,
             code = disptachData.callCode.code,
         }
-
     end
 
     if it.dispatch == Dispatches.LOVE_SCRIPTS then
-        for jobName, _ in pairs(disptachData.jobs) do
+        for _, jobName in pairs(disptachData.jobs) do
+
             TriggerEvent('emergencydispatch:emergencycall:new', jobName, disptachData.message, vector3(disptachData.coords.x, disptachData.coords.y, disptachData.coords.z), true)
         end
     end
 
 
     if it.disptach == Dispatches.ORIGEN then
-        for jobName, _ in pairs(disptachData.jobs) do
+        for _, jobName in pairs(disptachData.jobs) do
             exports['origen_police']:SendAlert({
                 coords = vector3(disptachData.coords.x, disptachData.coords.y, disptachData.coords.z),
                 title = disptachData.title,
