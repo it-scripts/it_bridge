@@ -8,21 +8,23 @@ function it.openMenu(menuData)
                 icon = optionData.icon,
                 title = optionData.title,
                 description = optionData.description,
-                disable = optionData.disabled,
+                disabled = optionData.disabled,
             })
         end
 
         CoreObject.OpenContext("left", elements, function(menu, element)
-            local elementName = element.name
-            for _, data in pairs(menuData) do
-                if data.name == elementName then
+            local elementName = element.title
+            for _, data in pairs(menuData.options) do
+                if data.title == elementName then
                     data.onSelect()
                     CoreObject.CloseContext()
                     break
                 end
             end
         end, function(menu)
-            menuData.onBack()
+            if menuData.onBack then
+                menuData.onBack()
+            end
         end)
     end
 
@@ -33,7 +35,7 @@ function it.openMenu(menuData)
                 title = optionData.title,
                 disabled = optionData.disabled,
                 readOnly = optionData.readOnly,
-                onSelect = optionData.onSelect(),
+                onSelect = optionData.onSelect,
                 icon = optionData.icon,
                 progress = optionData.progress,
                 colorScheme = optionData.colorScheme,
@@ -60,7 +62,7 @@ function it.openMenu(menuData)
         for _, optionData in pairs(menuData.options) do
             table.insert(options, {
                 isMenuHeader = optionData.readOnly,
-                header = optionData.header,
+                header = optionData.title,
                 txt = optionData.description,
                 icon = optionData.icon,
                 params = optionData.params,
@@ -77,6 +79,6 @@ function it.openMenu(menuData)
     end
 end
 
-exports("openMenu", function(menuData)
+exports("OpenMenu", function(menuData)
     it.openMenu(menuData)
 end)
