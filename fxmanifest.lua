@@ -31,7 +31,8 @@ server_scripts {
 }
 
 escrow_ignore {
-    'framework/shared.lua',
+    'modules/disptach/*.lua',
+    'modules/framework/shared.lua',
     'config.lua'
 }
 
