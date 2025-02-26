@@ -30,6 +30,7 @@ function it.createTargetModel(model, options)
 
     if it.interaction == Interactions.QB then
         local qbOptions = {}
+        local optionLabels = {}
         for _, optionData in pairs(options) do
             table.insert(qbOptions, {
                 label = optionData.label,
@@ -45,50 +46,86 @@ function it.createTargetModel(model, options)
                     end
                 end,
             })
+            table.insert(optionLabels, optionData.label)
         end
         exports[Interactions.QB]:AddTargetModel(model, {
             options = qbOptions,
             distance = options.distance,
         })
-        return model
+        return optionLabels
     end
 end
 
-function it.removeTargetModel(model, callerResource)
+function it.removeTargetModel(targetModel, callerResource)
     if it.interaction == Interactions.OX then
-        local removeOptions = targetModels[callerResource].model
+        local removeOptions = targetModels[callerResource][targetModel]
         for _, option in pairs(removeOptions) do
-            exports.ox_target:removeModel(model, option)
+            exports.ox_target:removeModel(targetModel, option)
         end
     end
 
     if it.interaction == Interactions.QB then
-        exports[Interactions.QB]:RemoveTargetModel(model)
+        local removeOptions = targetModels[callerResource][targetModel]
+        for _, option in pairs(removeOptions) do
+            exports[Interactions.QB]:RemoveTargetModel(targetModel, option)
+        end
     end
 end
 
-exports("CreateTargetModel", function(model, targetData)
+exports("CreateTargetModel", function(targetModel, targetData)
     local callerResource = GetInvokingResource()
 
     -- Check of targetModel already exists for this resource
-    if targetModels[callerResource].model then
+    if targetModels[callerResource] and targetModels[callerResource].model then
         it.print.warn("TargetModel already exists for resource: " .. callerResource)
         return
     end
 
-    local target = it.createTargetModel(model, targetData)
-    targetModels[callerResource].model = target
+    local target = it.createTargetModel(targetModel, targetData)
+    targetModels[callerResource] = targetModels[callerResource] or {}
+    targetModels[callerResource][targetModel] = target
     return target
 end)
 
-exports("RemoveTargetModel", function(model)
+exports("RemoveTargetModel", function(targetModel)
     local callerResource = GetInvokingResource()
 
-    if not targetModels[callerResource].model then
+    if not targetModels[callerResource] or not targetModels[callerResource][targetModel] then
         it.print.warn("TargetModel does not exist for resource: " .. callerResource)
         return
     end
 
-    it.removeTargetModel(model, callerResource)
+    it.removeTargetModel(targetModel, callerResource)
     targetModels[callerResource].model = nil
+end)
+
+exports('RemoveTargetModelOption', function(targetModel, targetOption)
+    local callerResource = GetInvokingResource()
+
+    if not targetModels[callerResource] or not targetModels[callerResource][targetModel] then
+        it.print.warn("TargetModel does not exist for resource: " .. callerResource)
+        return
+    end
+
+    if it.interaction == Interactions.OX then
+        for _, option in pairs(targetModels[callerResource][targetModel]) do
+            if option == targetOption then
+                table.remove(targetModels[callerResource][targetModel], targetOption)
+                exports.ox_target:removeModel(targetModel, targetOption)
+                return
+            end
+            it.print.warn("Option does not exist for targetModel: " .. targetModel)
+        end
+    end
+
+    if it.interaction == Interactions.QB then
+        for _, option in pairs(targetModels[callerResource][targetModel]) do
+            if option == targetOption then
+                table.remove(targetModels[callerResource][targetModel], targetOption)
+                exports[Interactions.QB]:RemoveTargetModel(targetModel, targetOption)
+                return
+            end
+            it.print.warn("Option does not exist for targetModel: " .. targetModel)
+        end
+    end
 end)

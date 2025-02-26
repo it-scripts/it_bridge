@@ -80,7 +80,7 @@ exports("CreateGlobalPed", function(options)
         return
     end
 
-    local target = it.createTargetModel(options)
+    local target = it.createGlobalPed(options)
     globalePeds[callerResource] = target
     return target
 end)
@@ -93,6 +93,6 @@ exports("RemoveGlobalPed", function()
         return
     end
 
-    it.removeTargetModel(callerResource)
+    it.removeGlobalPed(callerResource)
     globalePeds[callerResource] = nil
 end)
