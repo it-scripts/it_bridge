@@ -20,7 +20,7 @@ Framework = {
     ESX = 'es_extended',
     QBCore = 'qb-core',
     QBOX = 'qbx_core',
-    NDCore = 'ND_Cor',
+    NDCore = 'ND_Core',
 }
 
 Inventories = {
