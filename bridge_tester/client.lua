@@ -78,3 +78,38 @@ RegisterCommand("testBridgeClient", function(source, args, rawCommand)
 
     lib.print.info('End executing bridge test')
 end, false)
+
+
+RegisterCommand('testBridgeDisptach', function(source, args, rawCommand)
+    lib.print.info('Start executing bridge test')
+
+    local dispatch = exports.it_bridge:GetServerDisptach()
+    lib.print.info('Dispatch', dispatch)
+
+    lib.print.info('Testing dispatch export')
+
+    local playerCoords = GetEntityCoords(PlayerPedId())
+    exports.it_bridge:SendDisptach({
+        jobs = { 'police' },
+        coords = playerCoords,
+        title = 'Test Dispatch',
+        message = 'Test Dispatch Message',
+        job = 'police',
+        callCode = {
+            code = '10-4',
+            snippet = '10-4',
+        },
+        blip = {
+            sprite = 1,
+            scale = 1.0,
+            colour = 1,
+            flashes = false,
+            text = 'Test Dispatch',
+            time = 5000,
+            radius = 100.0,
+        }
+    })
+    lib.print.info('Testing dispatch export done')
+
+    lib.print.info('End executing bridge test')
+end, false)
