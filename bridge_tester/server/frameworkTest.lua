@@ -1,5 +1,5 @@
 lib.addCommand('bridgeTestFramework', {
-    help = 'Gives an item to a player',
+    help = 'Test Bridge Framework exports',
     params = {
         {
             name = 'target',

@@ -1,5 +1,5 @@
 lib.addCommand('bridgeTestInventory', {
-    help = 'Gives an item to a player',
+    help = 'Test Bridge Inventory exports',
     params = {
         {
             name = 'target',
