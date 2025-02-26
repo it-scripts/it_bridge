@@ -101,6 +101,6 @@ RegisterNetEvent('it_bridge:server:sendDispatch', function(disptachData)
     it.sendDisptach(source, disptachData)
 end)
 
-exports('sendDisptach', function(playerId, disptachData)
+exports('SendDisptach', function(playerId, disptachData)
     it.sendDisptach(playerId, disptachData)
 end)
