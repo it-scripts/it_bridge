@@ -28,9 +28,9 @@ function it.getItemLabel(itemName)
     end
 
     if it.inventory == Inventories.OX then
-        local items = ox_inventory:Items(itemName)
-        if items[itemName] then
-            return items[itemName].label
+        local item = ox_inventory:Items(itemName)
+        if item then
+            return item.label
         end
     end
 
@@ -48,10 +48,10 @@ function it.getItemLabel(itemName)
     return itemName
 end
 
-lib.callback.register('it_bridge:callback:getItemLabel', function(itemName)
+lib.callback.register('it_bridge:callback:getItemLabel', function(_, itemName)
     return it.getItemLabel(itemName)
 end)
 
-exports('getItemLabel', function(itemName)
+exports('GetItemLabel', function(itemName)
     return it.getItemLabel(itemName)
 end)

@@ -38,6 +38,6 @@ function it.getCitizenId(source)
     return nil
 end
 
-exports('getCitizenId', function(source)
+exports('GetCitizenId', function(source)
     return it.getCitizenId(source)
 end)

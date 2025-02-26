@@ -1,21 +1,3 @@
-it = setmetatable({
-    name = 'it_bridge',
-    context = IsDuplicityVersion() and "server" or "client",
-}, {
-    __nexindex = function(self, name, fn)
-        rawset(self, name, fn)
-    end
-})
-
-cache = {
-    resource = GetResourceMetadata(it.name, 'identifier', 0),
-    game = GetGameName();
-    version = GetResourceMetadata(it.name, 'version', 0),
-}
-
-STANDALONE = 'standalone'
-AUTO_DETECT = 'auto-detect'
-
 -- Functions to detect the config values
 -- ┌──────────────────────────────────────────────────────────────┐
 -- │ _____ ____      _    __  __ _______        _____  ____  _  __│
@@ -26,13 +8,6 @@ AUTO_DETECT = 'auto-detect'
 -- └──────────────────────────────────────────────────────────────┘
 --- Detect the framework that is used by the server
 ---
-Framework = {
-    ESX = 'es_extended',
-    QBCore = 'qb-core',
-    QBOX = 'qbx_core',
-    NDCore = 'ND_Cor',
-}
-
 --- @return table | nil
 local function detectFramework()
     local function detectESX()
@@ -131,91 +106,59 @@ end
 -- │|___|_| \_|  \_/  |_____|_| \_| |_| \___/|_| \_\|_|  │
 -- └─────────────────────────────────────────────────────┘
 --- Detect the inventory that is used by the server
-
-Inventories = {
-    ESX = 'es_extended',
-    QB = 'qb-inventory',
-    PS = 'ps-inventory',
-    QS = 'qs-inventory',
-    OX = 'ox_inventory',
-    CODEM = 'codem-inventory',
-    ORIGEN = 'origen-inventory',
-}
-
 --- @return table | nil
 local function detectInventory()
-    local function detectESX()
-        if GetResourceState('es_extended') == 'started' then
-            local esx = exports['es_extended']:getSharedObject()
-            if esx then
-                it.inventory = Inventories.ESX
-                return esx
-            end
-        end
-    end
-
-    local function detectQB()
-        if GetResourceState('qb-inventory') == 'started' then
-            local qbInventory = exports['qb-inventory']:GetInventory()
-            if qbInventory then
-                it.inventory = Inventories.QB
-                return qbInventory
-            end
-        end
-    end
-
     local function detectPS()
         if GetResourceState('ps-inventory') == 'started' then
-            local psInventory = exports['ps-inventory']:GetInventory()
-            if psInventory then
-                it.inventory = Inventories.PS
-                return psInventory
-            end
+            it.inventory = Inventories.PS
+            return Inventories.PS
         end
     end
 
     local function detectQS()
         if GetResourceState('qs-inventory') == 'started' then
-            local qsInventory = exports['qs-inventory']:GetInventory()
-            if qsInventory then
-                it.inventory = Inventories.QS
-                return qsInventory
-            end
+            it.inventory = Inventories.QS
+            return Inventories.QS
         end
     end
 
     local function detectOX()
         if GetResourceState('ox_inventory') == 'started' then
-            local oxInventory = exports['ox_inventory']:GetInventory()
-            if oxInventory then
-                it.inventory = Inventories.OX
-                return oxInventory
-            end
+            it.inventory = Inventories.OX
+            return Inventories.OX
         end
     end
 
     local function detectCODEM()
         if GetResourceState('codem-inventory') == 'started' then
-            local codemInventory = exports['codem-inventory']:GetInventory()
-            if codemInventory then
-                it.inventory = Inventories.CODEM
-                return codemInventory
-            end
+            it.inventory = Inventories.CODEM
+            return Inventories.CODEM
         end
     end
 
     local function detectORIGEN()
         if GetResourceState('origen-inventory') == 'started' then
-            local origenInventory = exports['origen-inventory']:GetInventory()
-            if origenInventory then
-                it.inventory = Inventories.ORIGEN
-                return origenInventory
-            end
+            it.inventory = Inventories.ORIGEN
+            return Inventories.ORIGEN
+        end
+    end
+
+    local function detectESX()
+        if GetResourceState('es_extended') == 'started' then
+            it.inventory = Inventories.ESX
+            return Inventories.ESX
+        end
+    end
+
+    local function detectQB()
+        if GetResourceState('qb-inventory') == 'started' then
+            it.inventory = Inventories.QB
+            return Inventories.QB
         end
     end
 
     if Config.Inventories == AUTO_DETECT then
-        local inventory = detectESX() or detectQB() or detectPS() or detectQS() or detectOX() or detectCODEM() or detectORIGEN() or STANDALONE
+        local inventory = detectPS() or detectQS() or detectOX() or detectCODEM() or detectORIGEN() or detectESX() or detectQB() or STANDALONE
         if inventory == STANDALONE then
             it.print.warn('[it_bridge] No inventory was detected, you will need to integrate it!')
             return
@@ -298,43 +241,27 @@ end
 -- │|___|_| |_|\__\___|_|  \__,_|\___|\__|_|\___/|_| |_|│
 -- └────────────────────────────────────────────────────┘
 --- Detect the interactions that are used by the server
-
-Interactions = {
-    OX = 'ox_target',
-    QB = 'qb-target',
-    MV = 'ps-inventory',
-    NONE = 'none',
-}
-
 --- @return table | nil
 local function detectInteractions()
     local function detectOX()
         if GetResourceState('ox_target') == 'started' then
-            local oxInteraction = exports['ox_target']:GetInteraction()
-            if oxInteraction then
-                it.interaction = Interactions.OX
-                return oxInteraction
-            end
+            it.interaction = Interactions.OX
+            return Interactions.OX
         end
     end
 
     local function detectQB()
         if GetResourceState('qb-target') == 'started' then
-            local qbInteraction = exports['qb-target']:GetInteraction()
-            if qbInteraction then
-                it.interaction = Interactions.QB
-                return qbInteraction
-            end
+            it.interaction = Interactions.QB
+            return Interactions.QB
         end
     end
 
     local function detectMV()
         if GetResourceState('ps-inventory') == 'started' then
-            local mvInteraction = exports['ps-inventory']:GetInteraction()
-            if mvInteraction then
-                it.interaction = Interactions.MV
-                return mvInteraction
-            end
+            it.interaction = Interactions.MV
+            return Interactions.MV
+           
         end
     end
 
@@ -391,86 +318,54 @@ end
 -- │|_| \_|\___/ \__|_|_| |_|\___\__,_|\__|_|\___/|_| |_|│
 -- └─────────────────────────────────────────────────────┘
 --- Detect the notify system that is used by the server
-
-Notifications = {
-    BRUTAL = 'brutal_notify',
-    OX = 'ox_lib',
-    ESX_NOTIFY = 'esx_notify',
-    QBCORE = 'qb-core',
-    ESX = 'es_extended',
-    MYTHIC = 'mythic_notify',
-    OKOK = 'okokNotify',
-}
-
 --- @return table | nil
 local function detectNotify()
     local function detectBRUTAL()
         if GetResourceState('brutal_notify') == 'started' then
-            local brutalNotify = exports['brutal_notify']:GetNotify()
-            if brutalNotify then
-                it.notify = Notifications.BRUTAL
-                return brutalNotify
-            end
+            it.notify = Notifications.BRUTAL
+            return Notifications.BRUTAL
         end
     end
 
     local function detectPNOTIFY()
         if GetResourceState('qb-pNotify') == 'started' then
-            local pNotify = exports['qb-pNotify']:GetNotify()
-            if pNotify then
-                it.notify = Notifications.PNOTIFY
-                return pNotify
-            end
+            it.notify = Notifications.PNOTIFY
+            return Notifications.PNOTIFY
         end
     end
 
     local function detectOX()
         if GetResourceState('ox_lib') == 'started' then
-            local oxNotify = exports['ox_lib']:GetNotify()
-            if oxNotify then
-                it.notify = Notifications.OX
-                return oxNotify
-            end
+            it.notify = Notifications.OX
+            return Notifications.OX
         end
     end
 
     local function detectESX_NOTIFY()
         if GetResourceState('esx_notify') == 'started' then
-            local esxNotify = exports['esx_notify']:GetNotify()
-            if esxNotify then
-                it.notify = Notifications.ESX_NOTIFY
-                return esxNotify
-            end
+            it.notify = Notifications.ESX_NOTIFY
+            return Notifications.ESX_NOTIFY
         end
     end
 
     local function detectQBCORE()
         if GetResourceState('qb-core') == 'started' then
-            local qbCoreNotify = exports['qb-core']:GetNotify()
-            if qbCoreNotify then
-                it.notify = Notifications.QBCORE
-                return qbCoreNotify
-            end
+            it.notify = Notifications.QBCORE
+            return Notifications.QBCORE
         end
     end
 
     local function detectESX()
         if GetResourceState('es_extended') == 'started' then
-            local esxNotify = exports['es_extended']:GetNotify()
-            if esxNotify then
-                it.notify = Notifications.ESX
-                return esxNotify
-            end
+            it.notify = Notifications.ESX
+            return Notifications.ESX
         end
     end
 
     local function detectMYTHIC()
         if GetResourceState('mythic_notify') == 'started' then
-            local mythicNotify = exports['mythic_notify']:GetNotify()
-            if mythicNotify then
-                it.notify = Notifications.MYTHIC
-                return mythicNotify
-            end
+            it.notify = Notifications.MYTHIC
+            return Notifications.MYTHIC
         end
     end
 
@@ -577,42 +472,26 @@ end
 -- │|_|  |_|\___|_| |_|\__,_|___/│
 -- └─────────────────────────────┘
 --- Detect the menu resource that is used by the server
-
-Menus = {
-    ESX_CONTEXT = 'esx_context',
-    OX = 'ox_lib',
-    QB = 'qb-menu',
-}
-
 --- @return table | nil
 local function detectMenu()
     local function detectESX_CONTEXT()
         if GetResourceState('esx_context') == 'started' then
-            local esxContext = exports['esx_context']:GetMenu()
-            if esxContext then
-                it.menu = Menus.ESX_CONTEXT
-                return esxContext
-            end
+            it.menu = Menus.ESX_CONTEXT
+            return Menus.ESX_CONTEXT
         end
     end
 
     local function detectOX()
         if GetResourceState('ox_lib') == 'started' then
-            local oxMenu = exports['ox_lib']:GetMenu()
-            if oxMenu then
-                it.menu = Menus.OX
-                return oxMenu
-            end
+            it.menu = Menus.OX
+            return Menus.OX
         end
     end
 
     local function detectQB()
         if GetResourceState('qb-menu') == 'started' then
-            local qbMenu = exports['qb-menu']:GetMenu()
-            if qbMenu then
-                it.menu = Menus.QB
-                return qbMenu
-            end
+            it.menu = Menus.QB
+            return Menus.QB
         end
     end
 
@@ -665,86 +544,55 @@ end
 -- │            |_|                                  │
 -- └─────────────────────────────────────────────────┘
 --- Detect the dispatch resource that is used by the server
-
-Dispatches = {
-    QS = 'qs-dispatch',
-    PS = 'ps-dispatch',
-    CD = 'cd_disaptch',
-    CORE = 'core_dispatch',
-    CODEM = 'codem_dispatch',
-    LOVE_SCRIPTS = 'emergency_dispatch',
-    ORIGEN = 'origen_police',
-}
-
 --- @return table | nil
 local function detectDispatch()
     local function detectQS()
         if GetResourceState('qs-dispatch') == 'started' then
-            local qsDispatch = exports['qs-dispatch']:GetDispatch()
-            if qsDispatch then
-                it.dispatch = Dispatches.QS
-                return qsDispatch
-            end
+            it.dispatch = Dispatches.QS
+            return Dispatches.QS  
         end
     end
 
     local function detectPS()
         if GetResourceState('ps-dispatch') == 'started' then
-            local psDispatch = exports['ps-dispatch']:GetDispatch()
-            if psDispatch then
-                it.dispatch = Dispatches.PS
-                return psDispatch
-            end
+            it.dispatch = Dispatches.PS
+            return Dispatches.PS
         end
     end
 
     local function detectCD()
         if GetResourceState('cd-dispatch') == 'started' then
-            local cdDispatch = exports['cd-dispatch']:GetDispatch()
-            if cdDispatch then
-                it.dispatch = Dispatches.CD
-                return cdDispatch
-            end
+            it.dispatch = Dispatches.CD
+            return Dispatches.CD  
         end
     end
 
     local function detectCORE()
         if GetResourceState('core_dispatch') == 'started' then
-            local coreDispatch = exports['core_dispatch']:GetDispatch()
-            if coreDispatch then
-                it.dispatch = Dispatches.CORE
-                return coreDispatch
-            end
+            it.dispatch = Dispatches.CORE
+            return Dispatches.CORE
         end
     end
 
     local function detectCODEM()
         if GetResourceState('codem_dispatch') == 'started' then
-            local codemDispatch = exports['codem_dispatch']:GetDispatch()
-            if codemDispatch then
-                it.dispatch = Dispatches.CODEM
-                return codemDispatch
-            end
+            it.dispatch = Dispatches.CODEM
+            return  Dispatches.CODEM
         end
     end
 
     local function detectLOVE_SCRIPTS()
         if GetResourceState('emergency_dispatch') == 'started' then
-            local loveScriptsDispatch = exports['emergency_dispatch']:GetDispatch()
-            if loveScriptsDispatch then
+           
                 it.dispatch = Dispatches.LOVE_SCRIPTS
-                return loveScriptsDispatch
-            end
+                return Dispatches.LOVE_SCRIPTS
         end
     end
 
     local function detectORIGEN()
         if GetResourceState('origen_police') == 'started' then
-            local origenDispatch = exports['origen_police']:GetDispatch()
-            if origenDispatch then
-                it.dispatch = Dispatches.ORIGEN
-                return origenDispatch
-            end
+            it.dispatch = Dispatches.ORIGEN
+            return Dispatches.ORIGEN
         end
     end
 
@@ -812,7 +660,11 @@ local function detectDispatch()
         return origenDispatch
     end
 
-    it.print.error(string.format('[it_bridge] The dispatch %s is not supported!', dispatch))
+    if Config.Disptaches == STANDALONE then
+        it.dispatch = Dispatches.STANDALONE
+    end
+
+    it.print.error(string.format('[it_bridge] The dispatch %s is not supported!', Config.Dispatches))
 end
 
 if Config.Framework then

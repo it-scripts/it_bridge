@@ -4,10 +4,13 @@
 ---@param metadata table | nil: The metadata of the item.
 ---@return number: The amount of the item.
 function it.getItemCount(source, item, metadata)
+
+    if not metadata then metadata = nil end
+
     if it.inventory == Inventories.ESX then
         local Player = CoreObject.GetPlayerFromId(source)
         if not Player then
-            it.print.warn('[getItemCount] - Unable to load the player. Please contact the developer.')
+            it.print.error('[getItemCount] - Unable to load the player. Please contact the developer.')
             return 0
         end
         local esxItem = Player.getInventoryItem(item)
@@ -32,8 +35,8 @@ function it.getItemCount(source, item, metadata)
     end
 
     if it.inventory == Inventories.OX then
-        local itemData = ox_inventory.GetItem(source, item, metadata or nil, true)
-        if itemData then return itemData.amount end
+        local itemData = ox_inventory:GetItem(source, item, metadata or nil, false)
+        if itemData then return itemData.count end
     end
 
     if it.inventory == Inventories.CODEM then
@@ -55,6 +58,6 @@ lib.callback.register('it_bridge:callback:getItemCount', function(source, item, 
     return it.getItemCount(source, item, metadata)
 end)
 
-exports('getItemCount', function(source, item, metadata)
+exports('GetItemCount', function(source, item, metadata)
     return it.getItemCount(source, item, metadata)
 end)

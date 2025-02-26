@@ -5,11 +5,12 @@
 ---@return boolean: If the player has the item.
 function it.hasItem(source, item, amount, metadata)
     if not amount then amount = 1 end
+    if not metadata then metadata = nil end
 
     if it.inventory == Inventories.ESX then
         local Player = CoreObject.GetPlayerFromId(source)
         if not Player then
-            it.print.warn('[hasItem] - Unable to load the player. Please contact the developer.')
+            it.print.error('[hasItem] - Unable to load the player. Please contact the developer.')
             return false
         end
 		local esxItem = Player.getInventoryItem(item)
@@ -33,16 +34,16 @@ function it.hasItem(source, item, amount, metadata)
         if totalAmount  then
             if totalAmount >= amount then return true else return false end
         end
-        lib.print.warn('[hasItem] - Unable to get the item total amount. Please contact the developer.')
+        lib.print.error('[hasItem] - Unable to get the item total amount. Please contact the developer.')
         return false
     end
 
     if it.inventory == Inventories.OX then
-        local itemData = ox_inventory.GetItem(source, item, metadata or nil, true)
+        local itemData = ox_inventory:GetItem(source, item, metadata or nil, false)
         if itemData then
-            if itemData.amount >= amount then return true else return false end
+            if itemData.count >= amount then return true else return false end
         end
-        it.print.warn('[hasItem] - Unable to get the item data. Please contact the developer.')
+        it.print.error('[hasItem] - Unable to get the item data. Please contact the developer.')
         return false
     end
 
@@ -51,7 +52,7 @@ function it.hasItem(source, item, amount, metadata)
         if hasItem then
             if hasItem >= amount then return true else return false end
         end
-        it.print.warn('[hasItem] - Unable to get the item total amount. Please contact the developer.')
+        it.print.error('[hasItem] - Unable to get the item total amount. Please contact the developer.')
         return false
     end
 
@@ -60,14 +61,14 @@ function it.hasItem(source, item, amount, metadata)
         if itemCount then
             if itemCount >= amount then return true else return false end
         end
-        it.print.warn('[hasItem] - Unable to get the item data. Please contact the developer.')
+        it.print.error('[hasItem] - Unable to get the item data. Please contact the developer.')
     end
 
     it.print.error('[hasItem] - The inventory is not supported.')
     return false
 end
 
-lib.callback.register('it_lib:callback:hasItem', function(source, item, amount, medatadata)
+lib.callback.register('it_bridge:callback:hasItem', function(source, item, amount, medatadata)
     return it.hasItem(source, item, amount, medatadata)
 end)
 

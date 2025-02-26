@@ -24,9 +24,9 @@ function it.sendNotification(title, msg, time, type, sound)
 end
 
 RegisterNetEvent('it_lib:client:notify', function(title, msg, time, type, sound)
-    it.notify(title, msg, time, type, sound)
+    it.sendNotification(title, msg, time, type, sound)
 end)
 
-exports('sendNotification', function(title, msg, time, type, sound)
+exports('SendNotification', function(title, msg, time, type, sound)
     it.sendNotification(title, msg, time, type, sound)
 end)

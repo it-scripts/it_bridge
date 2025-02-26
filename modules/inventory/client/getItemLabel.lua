@@ -2,9 +2,9 @@
 ---@param itemName string The item name.
 ---@return string The item label.
 function it.getItemLabel(itemName)
-    return lib.callback.await('it_lib:callback:getItemLabel', itemName, false)
+    return lib.callback.await('it_bridge:callback:getItemLabel', false, itemName)
 end
 
-exports('getItemLabel', function(itemName)
+exports('GetItemLabel', function(itemName)
     return it.getItemLabel(itemName)
 end)

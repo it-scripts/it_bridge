@@ -5,9 +5,10 @@
 ---@return boolean If the player has the item
 function it.hasItem(item, amount, metadata)
     if not amount then amount = 1 end
-    return lib.callback.await('it_lib:callback:hasItem', item, amount, metadata, false)
+    if not metadata then metadata = nil end
+    return lib.callback.await('it_bridge:callback:hasItem', false, item, amount, metadata)
 end
 
-exports('hasItem', function(item, amount, metadata)
+exports('HasItem', function(item, amount, metadata)
     return it.hasItem(item, amount, metadata)
 end)

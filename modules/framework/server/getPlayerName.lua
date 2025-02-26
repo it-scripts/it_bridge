@@ -36,6 +36,6 @@ function it.getPlayerName(player)
     return nil
 end
 
-exports('getPlayerName', function(player)
+exports('GetPlayerName', function(player)
     return it.getPlayerName(player)
 end)

@@ -3,7 +3,7 @@ local consumableItems = {}
 function it.createUsableItems(itemName, cb)
 
     if consumableItems[itemName] then
-        it.print.warn('The item ' .. itemName .. ' is already registered as a consumable item')
+        it.print.error('The item ' .. itemName .. ' is already registered as a consumable item')
         return
     end
 
@@ -43,6 +43,6 @@ function it.createUsableItems(itemName, cb)
     it.print.error('Failed to create usable item: ' .. itemName)
 end
 
-exports('createUsableItems', function(itemName, cb)
+exports('CreateUsableItems', function(itemName, cb)
     it.createUsableItems(itemName, cb)
 end)

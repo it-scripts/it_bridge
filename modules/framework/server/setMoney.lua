@@ -50,6 +50,6 @@ function it.setMoney(source, moneyType, amount, reason)
     return true
 end
 
-exports('setMoney', function(source, moneyType, amount, reason)
+exports('SetMoney', function(source, moneyType, amount, reason)
     return it.setMoney(source, moneyType, amount, reason)
 end)

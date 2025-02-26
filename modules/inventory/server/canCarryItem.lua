@@ -9,7 +9,7 @@ function it.canCarryItem(source, item, amount)
     if it.inventory == Inventories.ESX then
         local Player = CoreObject.GetPlayerFromId(source)
         if not Player then
-            it.print.warn('[canCarryItem] - Unable to load the player. Please contact the developer.')
+            it.print.error('[canCarryItem] - Unable to load the player. Please contact the developer.')
             return false
         end
         local canCarryItem = Player.canCarryItem(item, amount)
@@ -32,7 +32,7 @@ function it.canCarryItem(source, item, amount)
     end
 
     if it.inventory == Inventories.OX then
-        local canCarryItem = ox_inventory.CanCarryItem(source, item, amount)
+        local canCarryItem = ox_inventory:CanCarryItem(source, item, amount, nil)
         if canCarryItem then return true else return false end
     end
 
@@ -54,6 +54,6 @@ lib.callback.register('it_lib:callback:canCarryItem', function(source, item, amo
     return it.canCarryItem(source, item, amount)
 end)
 
-exports('canCarryItem', function(source, item, amount)
+exports('CanCarryItem', function(source, item, amount)
     return it.canCarryItem(source, item, amount)
 end)

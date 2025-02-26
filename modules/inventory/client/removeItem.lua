@@ -4,9 +4,9 @@
 ---@param metadata table|string|nil The metadata of the item.
 ---@return boolean If the item was removed from the player.
 function it.removeItem(item, amount, metadata)
-    return lib.callback.await('it_bridge:callback:removeItem', item, amount, metadata, false)
+    return lib.callback.await('it_bridge:callback:removeItem', false, item, amount, metadata)
 end
 
-exports('removeItem', function(item, amount, metadata)
+exports('RemoveItem', function(item, amount, metadata)
     return it.removeItem(item, amount, metadata)
 end)

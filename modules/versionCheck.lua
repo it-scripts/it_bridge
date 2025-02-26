@@ -6,9 +6,10 @@ local function parseJson(data)
     return decodedData
 end
 
-local currentVersionFile = parseJson(LoadResourceFile(GetCurrentResourceName(), "version"))
+local updatePath = nil
+local identifier = GetResourceMetadata(GetCurrentResourceName(), "identifier", 0)
+local version = GetResourceMetadata(GetCurrentResourceName(), "version", 0)
 local remoteVersionFile = nil
-local updatePath
 
 local function checkResourceVersion(err, responseText, headers)
     remoteVersionFile = parseJson(responseText)
@@ -20,30 +21,32 @@ local function checkResourceVersion(err, responseText, headers)
         print("^5======================================^7")
         return
     end
+
+    print(version)
+    print(remoteVersionFile.version)
     
-    if currentVersionFile.version >= remoteVersionFile.version then
+    if version >= remoteVersionFile.version then
         print("^5======================================^7")
-        print("^2[it-drugs] - The Script is up to date!")
+        print("^2[it_bridge] - The Script is up to date!")
         print("^7Current Version: ^4" .. remoteVersionFile.version .. "^7.")
-        print('^7Branch: ^4'..Config.Branch.."^7.")
         print("^5======================================^7")
         return
     end
 
     print("^5======================================^7")
-    print('^8[it-drugs] - New update available now!')
-    print('^7Current Version: ^4'..currentVersionFile.version..'^7.')
+    print('^8[it_bridge] - New update available now!')
+    print('^7Current Version: ^4'..version..'^7.')
     print('^7New Version: ^4'..remoteVersionFile.version..'^7.')
-    print('^7Notes: ^4' ..remoteVersionFile.message.. '^7.')
+    print('^7Update Message: ^4' ..remoteVersionFile.message.. '^7.')
     print(' ')
-    print('^4Download it now on https://github.com/'..updatePath)
+    print('^4Download it now on http://keymaster.fivem.net')
     print("^5======================================^7")
 end
 
 AddEventHandler('onResourceStart', function(resource)
-    if resource == GetCurrentResourceName() and Config.EnableVersionCheck then
+    if resource == GetCurrentResourceName() then
         Wait(3000)
-        updatePath = "it-scripts/it_bridge"
-        PerformHttpRequest("https://raw.githubusercontent.com/"..updatePath.."/main/version", checkResourceVersion, "GET")
+        updatePath = "it-scripts/it-updates"
+        PerformHttpRequest("https://raw.githubusercontent.com/"..updatePath.."/main/"..identifier.."/version", checkResourceVersion, "GET")
     end
 end)

@@ -35,6 +35,6 @@ function it.getPlayer(source)
     return nil
 end
 
-exports('getPlayer', function(source)
+exports('GetPlayer', function(source)
     return it.getPlayer(source)
 end)

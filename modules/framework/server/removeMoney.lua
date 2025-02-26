@@ -53,6 +53,6 @@ function it.removeMoney(source, moneyType, amount, reason)
     return true
 end
 
-exports('removeMoney', function(source, moneyType, amount, reason)
+exports('RemoveMoney', function(source, moneyType, amount, reason)
     return it.removeMoney(source, moneyType, amount, reason)
 end)
