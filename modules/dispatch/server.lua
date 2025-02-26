@@ -90,6 +90,11 @@ function it.sendDisptach(playerId, disptachData)
             })
         end
     end
+
+    if it.dispatch == STANDALONE then
+        -- TODO: Here you can add your own dispatch system
+    end
+
 end
 
 RegisterNetEvent('it_bridge:server:sendDispatch', function(disptachData)

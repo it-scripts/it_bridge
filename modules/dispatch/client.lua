@@ -40,6 +40,10 @@ function it.sendDisptach(disptachData)
     if it.disptach == Dispatches.ORIGEN then
         TriggerServerEvent('it_bridge:server:sendDispatch', disptachData)
     end
+
+    if it.dispatch == STANDALONE then
+        -- TODO: Here you can add your own dispatch system
+    end
 end
 
 RegisterNetEvent('it_bridge:client:sendDispatch', it.sendDisptach)
