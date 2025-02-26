@@ -59,25 +59,7 @@ function it.sendDisptach(playerId, disptachData)
     end
 
     if it.dispatch == Dispatches.CD then
-        local cdDisptachData = {
-            job_table = disptachData.jobs,
-            coords = vector3(disptachData.coords.x, disptachData.coords.y, disptachData.coords.z),
-            title = disptachData.title,
-            message = disptachData.message,
-            flash = 0,
-            unique_id = tostring(math.random(0000000, 9999999)),
-            sound = 1,
-            blip = {
-                sprite = disptachData.blip.sprite,
-                scale = disptachData.blip.scale,
-                colour = disptachData.blip.colour,
-                falshes = disptachData.blip.flashes,
-                text = disptachData.blip.text,
-                time = disptachData.blip.time,
-                radius = disptachData.blip.radius,
-            }
-        }
-        TriggerClientEvent('cd_dispatch:AddNotification', -1, cdDisptachData)
+        TriggerClientEvent('it_bridge:client:sendDispatch', playerId, disptachData)
     end
 
     if it.dispatch == Dispatches.CODEM then
@@ -110,4 +92,10 @@ function it.sendDisptach(playerId, disptachData)
     end
 end
 
-exports('sendDisptach', it.sendDisptach)
+RegisterNetEvent('it_bridge:server:sendDispatch', function(disptachData)
+    it.sendDisptach(source, disptachData)
+end)
+
+exports('sendDisptach', function(playerId, disptachData)
+    it.sendDisptach(playerId, disptachData)
+end)
