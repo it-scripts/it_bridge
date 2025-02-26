@@ -22,7 +22,7 @@ function it.openMenu(menuData)
                 end
             end
         end, function(menu)
-            menuData.onClose()
+            menuData.onBack()
         end)
     end
 
@@ -33,7 +33,7 @@ function it.openMenu(menuData)
                 title = optionData.title,
                 disabled = optionData.disabled,
                 readOnly = optionData.readOnly,
-                onSelect = optionData.onSelect,
+                onSelect = optionData.onSelect(),
                 icon = optionData.icon,
                 progress = optionData.progress,
                 colorScheme = optionData.colorScheme,
@@ -77,4 +77,6 @@ function it.openMenu(menuData)
     end
 end
 
-exports("openMenu", it.openMenu)
+exports("openMenu", function(menuData)
+    it.openMenu(menuData)
+end)
