@@ -543,7 +543,7 @@ local function detectDispatch()
     local function detectQS()
         if GetResourceState('qs-dispatch') == 'started' then
             it.dispatch = Dispatches.QS
-            return Dispatches.QS  
+            return Dispatches.QS
         end
     end
 
