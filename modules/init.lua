@@ -266,7 +266,7 @@ local function detectInteractions()
     end
 
     if Config.Interactions == AUTO_DETECT then
-        local interaction = detectOX() or detectQB() or detectMV() or STANDALONE
+        local interaction = detectQB() or detectMV() or detectOX() or STANDALONE
         if interaction == STANDALONE then
             it.print.warn('[it_bridge] No interaction was detected, you will need to integrate it!')
             return
@@ -371,16 +371,13 @@ local function detectNotify()
 
     local function detectOKOK()
         if GetResourceState('okokNotify') == 'started' then
-            local okokNotify = exports['okokNotify']:GetNotify()
-            if okokNotify then
-                it.notify = Notifications.OKOK
-                return okokNotify
-            end
+            it.notify = Notifications.OKOK
+            return Notifications.OKOK
         end
     end
 
     if Config.Notifications == AUTO_DETECT then
-        local notify = detectBRUTAL() or detectPNOTIFY() or detectOX() or detectESX_NOTIFY() or detectQBCORE() or detectESX() or detectMYTHIC() or detectOKOK() or STANDALONE
+        local notify = detectBRUTAL() or detectPNOTIFY() or detectMYTHIC() or detectOKOK() or detectOX() or detectESX_NOTIFY() or detectESX() or detectQBCORE() or STANDALONE
         if notify == STANDALONE then
             it.print.warn('[it_bridge] No notify was detected, you will need to integrate it!')
             return
@@ -496,7 +493,7 @@ local function detectMenu()
     end
 
     if Config.Menus == AUTO_DETECT then
-        local menu = detectESX_CONTEXT() or detectOX() or detectQB() or STANDALONE
+        local menu = detectOX() or detectESX_CONTEXT() or detectQB() or STANDALONE
         if menu == STANDALONE then
             it.print.warn('[it_bridge] No menu was detected, you will need to integrate it!')
             return
@@ -582,10 +579,9 @@ local function detectDispatch()
     end
 
     local function detectLOVE_SCRIPTS()
-        if GetResourceState('emergency_dispatch') == 'started' then
-           
-                it.dispatch = Dispatches.LOVE_SCRIPTS
-                return Dispatches.LOVE_SCRIPTS
+        if GetResourceState('emergencydispatch') == 'started' then
+            it.dispatch = Dispatches.LOVE_SCRIPTS
+            return Dispatches.LOVE_SCRIPTS
         end
     end
 
@@ -593,6 +589,16 @@ local function detectDispatch()
         if GetResourceState('origen_police') == 'started' then
             it.dispatch = Dispatches.ORIGEN
             return Dispatches.ORIGEN
+        end
+    end
+
+    if Config.Dispatches == AUTO_DETECT then
+        local dispatch = detectQS() or detectPS() or detectCD() or detectCORE() or detectCODEM() or detectLOVE_SCRIPTS() or detectORIGEN() or STANDALONE
+        if dispatch == STANDALONE then
+            it.print.warn('[it_bridge] No dispatch was detected, you will need to integrate it!')
+            return
+        else
+            return dispatch
         end
     end
 
