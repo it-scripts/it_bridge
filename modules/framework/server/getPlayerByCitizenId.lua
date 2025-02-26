@@ -7,7 +7,7 @@ function it.getPlayerByCitizenId(citizenId)
     end
 
     if it.framework == Framework.QBCore then
-        local player = exports['qb-core']:GetPlayerByCitizenId(citizenId)
+        local player = CoreObject.Functions.GetPlayerByCitizenId(citizenId)
         if player then
             return player
         end

@@ -11,7 +11,7 @@ function it.getPlayer(source)
     end
 
     if it.framework == Framework.QBCore then
-        local player = exports['qb-core']:GetPlayer(source)
+        local player = CoreObject.Functions.GetPlayer(source)
         if player then
             return player
         end
