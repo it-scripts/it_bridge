@@ -21,10 +21,6 @@ local function checkResourceVersion(err, responseText, headers)
         print("^5======================================^7")
         return
     end
-
-    print(version)
-    print(remoteVersionFile.version)
-    
     if version >= remoteVersionFile.version then
         print("^5======================================^7")
         print("^2[it_bridge] - The Script is up to date!")
