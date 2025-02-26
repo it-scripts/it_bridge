@@ -58,10 +58,10 @@ function it.getPlayerJob(player)
             return {
                 name = job,
                 label = jobInfo.label,
-                grade = jobInfo.grade.rank,
-                grade_label = jobInfo.grade.name,
+                grade = jobInfo.rank,
+                grade_label = jobInfo.rankName,
                 grade_salary = 0,
-                isBoss = jobInfo.rankName == 'boss' or false,
+                isBoss = jobInfo.isBoss,
                 onDuty = true
             }
         end

@@ -43,7 +43,7 @@ function it.removeMoney(source, moneyType, amount, reason)
 
     if it.framework == Framework.NDCore then
         local moneyType = MoneyTypes[moneyType][Framework.NDCore]
-        local success = Player.removeMoney(moneyType, amount, reason)
+        local success = Player.deductMoney(moneyType, amount, reason)
         if not success then
             it.print.error("Failed to remove money from player: " .. source)
             return false
