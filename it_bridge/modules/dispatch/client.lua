@@ -1,4 +1,10 @@
 function it.sendDisptach(disptachData)
+
+    if it.disptach == Dispatches.NONE then
+        it.print.error("No dispatch type set.")
+        return
+    end
+
     if it.dispatch == Dispatches.QS then
         TriggerServerEvent('it_bridge:server:sendDispatch', disptachData)
     end
@@ -39,10 +45,6 @@ function it.sendDisptach(disptachData)
 
     if it.disptach == Dispatches.ORIGEN then
         TriggerServerEvent('it_bridge:server:sendDispatch', disptachData)
-    end
-
-    if it.dispatch == STANDALONE then
-        -- TODO: Here you can add your own dispatch system
     end
 end
 

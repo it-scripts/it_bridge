@@ -459,6 +459,93 @@ local function detectNotify()
 end
 
 -- ┌─────────────────────────────┐
+-- │ _____         _   _   _ ___ │
+-- │|_   _|____  _| |_| | | |_ _|│
+-- │  | |/ _ \ \/ / __| | | || | │
+-- │  | |  __/>  <| |_| |_| || | │
+-- │  |_|\___/_/\_\\__|\___/|___|│
+-- └─────────────────────────────┘
+-- Detect the textUI resources that is used by the server
+-- @return string | nil
+local function detectTextUI()
+    local function detectOX()
+        if GetResourceState('ox_lib') == 'started' then
+            it.textui = TextUI.OX
+            return TextUI.OX
+        end
+    end
+
+    local function detectQBCORE()
+        if GetResourceState('qb-core') == 'started' then
+            it.textui = TextUI.QBCORE
+            return TextUI.QBCORE
+        end
+    end
+
+    local function detectESX()
+        if GetResourceState('esx_textui') == 'started' then
+            it.textui = TextUI.ESX
+            return TextUI.ESX
+        end
+    end
+
+    local function detectOKOK()
+        if GetResourceState('okokTextUI') == 'started' then
+            it.textui = TextUI.OKOK
+            return TextUI.OKOK
+        end
+    end
+
+    if Config.TextUI == AUTO_DETECT then
+        local textUI = detectOKOK() or detectOX() or detectQBCORE() or detectESX() or STANDALONE
+        if textUI == STANDALONE then
+            it.print.warn('[it_bridge] No textUI was detected, you will need to integrate it!')
+            return
+        else
+            return textUI
+        end
+    end
+
+    if Config.TextUI == TextUI.OX then
+        local oxTextUI = detectOX()
+        if not oxTextUI then
+            it.print.error('[it_bridge] OX-TextUI was selected as the textUI, but the resource was not found or not started!')
+            return
+        end
+        return oxTextUI
+    end
+
+    if Config.TextUI == TextUI.QBCORE then
+        local qbCoreTextUI = detectQBCORE()
+        if not qbCoreTextUI then
+            it.print.error('[it_bridge] QB-CORE-TextUI was selected as the textUI, but the resource was not found or not started!')
+            return
+        end
+        return qbCoreTextUI
+    end
+
+    if Config.TextUI == TextUI.ESX then
+        local esxTextUI = detectESX()
+        if not esxTextUI then
+            it.print.error('[it_bridge] ESX-TextUI was selected as the textUI, but the resource was not found or not started!')
+            return
+        end
+        return esxTextUI
+    end
+
+    if Config.TextUI == TextUI.OKOK then
+        local okokTextUI = detectOKOK()
+        if not okokTextUI then
+            it.print.error('[it_bridge] OKOK-TextUI was selected as the textUI, but the resource was not found or not started!')
+            return
+        end
+        return okokTextUI
+    end
+
+    it.print.error(string.format('[it_bridge] The textUI %s is not supported!', textUI))
+end
+
+-- ┌─────────────────────────────┐
 -- │ __  __                      │
 -- │|  \/  | ___ _ __  _   _ ___ │
 -- │| |\/| |/ _ \ '_ \| | | / __|│
@@ -466,7 +553,7 @@ end
 -- │|_|  |_|\___|_| |_|\__,_|___/│
 -- └─────────────────────────────┘
 --- Detect the menu resource that is used by the server
---- @return table | nil
+--- @return string | nil
 local function detectMenu()
     local function detectESX_CONTEXT()
         if GetResourceState('esx_context') == 'started' then
@@ -684,6 +771,10 @@ end
 
 if Config.Notifications then
     NotifyObject = detectNotify()
+end
+
+if Config.TextUI then
+    TextUIObject = detectTextUI()
 end
 
 if Config.Menus then

@@ -1,6 +1,12 @@
 local globalePeds = {}
 
 function it.createGlobalPed(options)
+
+    if it.interaction == Interactions.NONE then
+        it.print.error("No interaction type set.")
+        return
+    end
+
     if it.interaction == Interactions.OX then
         local oxOptions = {}
         local optionNames = {}

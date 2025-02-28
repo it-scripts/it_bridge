@@ -53,7 +53,6 @@ Config.InventoryImgPath = {
         * AUTO_DETECT: auto-detect interactions [Only detecting supported interactions below]
         * Interactions.OX: ox_target,
         * Interactions.QB: qb-target,
-        * Interactions.MV, ps-inventory,
         * Interactions.NONE, distance interaction - press [E]
 ]]
 Config.Interactions = AUTO_DETECT
@@ -91,7 +90,8 @@ Config.NotificationsSettings = {
         * TextUI.OX: ox_lib,
         * TextUI.QBCORE: qb-core,
         * TextUI.ESX: esx_textui,
-        * STANDALONE: no TextUI resource found.
+        * TextUI.OKOK: okokTextUI,
+        * NONE: no TextUI resource found.
 ]]
     
 Config.TextUI = AUTO_DETECT
@@ -114,6 +114,7 @@ Config.Menus = AUTO_DETECT
         * Dispatches.CODEM, codem_dispatch
         * Dispatches.LOVE_SCRIPTS, emergency_dispatch
         * Dispatches.ORIGEN, origen_police
+        * Dispatches.NONE: no dispatch resource found.
 ]]
 
 Config.Dispatches = AUTO_DETECT

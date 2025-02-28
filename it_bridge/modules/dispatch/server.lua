@@ -1,4 +1,10 @@
 function it.sendDisptach(playerId, disptachData)
+
+    if it.disptach == Dispatches.NONE then
+        it.print.error("No dispatch type set.")
+        return
+    end
+
     if it.dispatch == Dispatches.QS then
         local qsDispatchData = {
             job = disptachData.jobs,

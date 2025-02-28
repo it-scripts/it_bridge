@@ -1,7 +1,10 @@
 local targetModels = {}
 
 function it.createTargetModel(model, options)
-
+    if it.interaction == Interactions.NONE then
+        it.print.error("No interaction type set.")
+        return
+    end
     if it.interaction == Interactions.OX then
         local oxOptions = {}
         local optionNames = {}
@@ -12,13 +15,13 @@ function it.createTargetModel(model, options)
                 icon = optionData.icon,
                 items = optionData.items,
                 groups = optionData.groups,
-                canInteract = function(entity, distance, coords, name, bone)
-                    if optionData.canOxInteract then
-                        return optionData.canOxInteract(entity, distance, coords, name, bone)
+                canInteract = function(entity, distance, _, _, _)
+                    if optionData.canInteract then
+                        return optionData.canInteract(entity, distance)
                     end
                 end,
                 onSelect = function(data)
-                    optionData.onOxSelect(data)
+                    optionData.onInteract(data.entity)
                 end,
                 distance = options.distance,
             })
@@ -38,11 +41,11 @@ function it.createTargetModel(model, options)
                 item = optionData.items[1],
                 job = optionData.job,
                 action = function(entity)
-                    optionData.onQbInteract(entity)
+                    optionData.onInteract(entity)
                 end,
-                canInteract = function(entity, distance, data)
-                    if optionData.canQbInteract then
-                        return optionData.canQbInteract(entity, distance, data)
+                canInteract = function(entity, distance, _)
+                    if optionData.canInteract then
+                        return optionData.canInteract(entity, distance)
                     end
                 end,
             })

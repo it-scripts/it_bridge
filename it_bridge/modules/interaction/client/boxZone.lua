@@ -3,6 +3,11 @@ local boxZones = {}
 
 function it.createBoxZone(options, boxData)
 
+    if it.interaction == Interactions.NONE then
+        it.print.error("No interaction type set.")
+        return
+    end
+
     if it.interaction == Interactions.OX then
 
         local oxOptions = {}
