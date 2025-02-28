@@ -1,4 +1,5 @@
 exports('GetServerFramework', function() return it.framework end)
+exports('GetServerFrameworkObject', function() return CoreObject end)
 exports('GetServerInventory', function() return it.inventory end)
 exports('GetServerInteraction', function() return it.interaction end)
 exports('GetServerNotify', function() return it.notify end)
