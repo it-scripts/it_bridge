@@ -36,8 +36,7 @@ Inventories = {
 Interactions = {
     OX = 'ox_target',
     QB = 'qb-target',
-    MV = 'ps-inventory',
-    NONE = 'none',
+    NONE = nil,
 }
 
 Notifications = {
@@ -48,6 +47,14 @@ Notifications = {
     ESX = 'es_extended',
     MYTHIC = 'mythic_notify',
     OKOK = 'okokNotify',
+}
+
+TextUI = {
+    OX = 'ox_lib',
+    QBCORE = 'qb-core',
+    ESX = 'esx_textui',
+    OKOK = 'okokTextUI',
+    NONE = nil,
 }
 
 Menus = {
@@ -64,4 +71,5 @@ Dispatches = {
     CODEM = 'codem_dispatch',
     LOVE_SCRIPTS = 'emergency_dispatch',
     ORIGEN = 'origen_police',
+    NONE = nil,
 }

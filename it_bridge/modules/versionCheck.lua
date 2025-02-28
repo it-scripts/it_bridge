@@ -33,6 +33,10 @@ local function checkResourceVersion(err, responseText, headers)
     if it.notify then
         notify = it.notify
     end
+    local textui = '^8NONE'
+    if it.textui then
+        textui = it.textui
+    end
     local distpach = '^8NONE'
     if it.disptach then
         distpach = it.dispatch
@@ -59,6 +63,7 @@ local function checkResourceVersion(err, responseText, headers)
     print('         ^6[3] - Interaction:  ^2'..interaction)
     print('         ^6[4] - Menu:         ^2'..menu)
     print('         ^6[5] - Notification: ^2'..notify)
+    print('         ^6[5] - TextUI:       ^2'..textui)
     print('         ^6[6] - Distpach:     ^2'..distpach)
     print(' ')
 
