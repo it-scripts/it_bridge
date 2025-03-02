@@ -1,9 +1,13 @@
-local globalePedTargets = {}
+local globalPlayerTargets = {}
 
-function it.addGlobalPed(options)
+--- Add a global player interaction.
+---@param options table Options for the global player interaction.
+---@return table The names of the options.
+function it.addGlobalPlayer(options)
+
     if it.interaction == Interactions.NONE then
-        it.print.error("No interaction type set.")
-        return
+        it.print.error("[addGlobalPlayer] - No interaction type set.")
+        return {}
     end
 
     if it.interaction == Interactions.OX then
@@ -12,7 +16,7 @@ function it.addGlobalPed(options)
         for _, optionData in pairs(options) do
             table.insert(oxOptions, {
                 label = optionData.label,
-                name = optionData.name,
+                name = optionData.label,
                 icon = optionData.icon,
                 items = optionData.items,
                 groups = optionData.groups,
@@ -28,7 +32,7 @@ function it.addGlobalPed(options)
             })
             table.insert(optionNames, optionData.name)
         end
-        exports.ox_target:addGlobalPed(oxOptions)
+        exports.ox_target:addGlobalPlayer(oxOptions)
         return optionNames
     end
 
@@ -41,80 +45,79 @@ function it.addGlobalPed(options)
                 icon = optionData.icon,
                 item = optionData.items[1],
                 job = optionData.job,
-                canInteract = function(entity, distance)
-                    if optionData.canInteract then
-                        return optionData.canInteract(entity, distance, _)
-                    end
-                end,
                 action = function(entity)
-                    optionData.onSelect(entity)
+                    optionData.onInteract(entity)
+                end,
+                canInteract = function(entity, distance, _)
+                    if optionData.canInteract then
+                        return optionData.canInteract(entity, distance)
+                    end
                 end,
             })
             table.insert(optionNames, optionData.label)
         end
-        exports[Interactions.QB]:AddGlobalPed({
+        exports[Interactions.QB]:AddGlobalPlayer({
             options = qbOptions,
             distance = options.distance,
         })
         return optionNames
     end
+
+    it.print.error("[addGlobalPlayer] - Unable to add global player interaction.")
+    return {}
 end
 
-function it.removeGlobalPed(options)
+--- Remove a global player interaction.
+--- @param options table | string  Options for the global player interaction.
+function it.removeGlobalPlayer(options)
 
     if it.interaction == Interactions.NONE then
-        it.print.error("[removeGlobalPed] - No interaction type set.")
+        it.print.error("[addGlobalPlayer] - No interaction type set.")
         return
     end
 
     if it.interaction == Interactions.OX then
-        exports.ox_target:removeGlobalPed(options)
+        exports.ox_target:RemoveGlobalPlayer(options)
     end
 
     if it.interaction == Interactions.QB then
-        exports[Interactions.QB]:RemoveGlobalPed(options)
+        exports[Interactions.QB]:RemoveGlobalPlayer(options)
     end
 end
 
-exports("AddGlobalPed", function(options)
+
+exports('AddGlobalPlayer', function(options)
     local callerResource = GetInvokingResource()
 
     local optionNames = ExtractOptionNames(options)
-    if #optionNames == 0 then
-        it.print.error("[AddGlobalPed] - No options found.")
-        return
-    end
-
     for _, optionName in pairs(optionNames) do
-        if globalePedTargets[optionName] and globalePedTargets[optionName][optionName] then
-            it.print.error("[AddGlobalPed] - GlobalPed option", optionName, "already exists in resource", callerResource)
+        if globalPlayerTargets[callerResource] and globalPlayerTargets[callerResource][optionName] then
+            lib.print.warn("[addGlobalPlayer] - GlobalPlayer option", optionName, "already exists for resource", callerResource)
             return
         end
     end
 
-    local addedOptions = it.addGlobalPed(options)
-    globalePedTargets[callerResource] = globalePedTargets[callerResource] or {}
+    local addedOptions = it.addGlobalPlayer(options)
+    globalPlayerTargets[callerResource] = globalPlayerTargets[callerResource] or {}
     for _, optionName in pairs(addedOptions) do
-        globalePedTargets[callerResource][optionName] = true
+        globalPlayerTargets[callerResource][optionName] = true
     end
 end)
 
-exports("RemoveGlobalPed", function(options)
-    local callerResource = GetInvokingResource()
-
+exports('RemoveGlobalPlayer', function(callerResource, options)
     if type(options) == "string" then
         options = {options}
     end
 
     for _, optionName in pairs(options) do
-        if not globalePedTargets[callerResource] or not globalePedTargets[callerResource][optionName] then
-            it.print.error("[RemoveGlobalPed] - GlobalPed option", optionName, "does not exist in resource", callerResource)
+        if not globalPlayerTargets[callerResource] or not globalPlayerTargets[callerResource][optionName] then
+            lib.print.warn("[addGlobalPlayer] - GlobalPlayer option", optionName, "does not exist for resource", callerResource)
             return
         end
     end
 
     for _, optionName in pairs(options) do
-        it.removeGlobalPed(optionName)
-        globalePedTargets[callerResource][optionName] = nil
+        it.removeGlobalPlayer(optionName)
+        globalPlayerTargets[callerResource][optionName] = nil
     end
 end)

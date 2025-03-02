@@ -18,13 +18,13 @@ function it.createBoxZone(options, boxData)
                 icon = optionData.icon,
                 items = optionData.items,
                 groups = optionData.groups,
-                canInteract = function(entity, distance, coords, name, bone)
-                    if optionData.canOxInteract then
-                        return optionData.canOxInteract(entity, distance, coords, name, bone)
+                canInteract = function(entity, distance, _, _, _)
+                    if optionData.canInteract then
+                        return optionData.canInteract(entity, distance)
                     end
                 end,
                 onSelect = function(data)
-                    optionData.onOxSelect(data)
+                    optionData.onInteract(data.entity)
                 end,
                 distance = options.distance,
             })
@@ -50,17 +50,17 @@ function it.createBoxZone(options, boxData)
                 item = optionData.items[1],
                 job = optionData.job,
                 action = function(entity)
-                    optionData.onQbInteract(entity)
+                    optionData.onInteract(entity)
                 end,
-                canInteract = function(entity, distance, data)
-                    if optionData.canQbInteract then
-                        return optionData.canQbInteract(entity, distance, data)
+                canInteract = function(entity, distance, _)
+                    if optionData.canInteract then
+                        return optionData.canInteract(entity, distance)
                     end
                 end,
             })
         end
         exports[Interactions.QB]:AddBoxZone(boxData.id, boxData.coords, boxData.size.x, boxData.size.y, {
-            name = boxData.id,
+            name = boxData.id or math.random(10000, 99999),
             heading = boxData.rotation,
             debugPoly = boxData.debug,
             maxZ = boxData.maxZ,
@@ -86,17 +86,17 @@ function it.removeBoxZone(zoneId)
 
 end
 
-exports("CreateBoxZone", function(options, boxData)
+exports("CreateBoxZone", function(boxData, options)
     local callerResource = GetInvokingResource()
 
     -- Check of boxZone already exists for this resource
-    if boxZones[callerResource].boxData.id then
-        it.print.warn("BoxZone already exists for resource: " .. callerResource)
+    if boxZones[callerResource] or boxZones[callerResource][boxData.id] then
+        it.print.error("[CreateBoxZone] - BoxZone with id:", boxData.id, "already exists for resource: ", callerResource)
         return
     end
 
     local zone = it.createBoxZone(options, boxData)
-    boxZones[callerResource].zoneData.id = zone
+    boxZones[callerResource][boxData.id] = true
     return zone
 end)
 
@@ -104,11 +104,11 @@ exports("RemoveBoxZone", function(boxId)
     local callerResource = GetInvokingResource()
 
     -- Check if boxZone exists
-    if not boxZones[callerResource].boxId then
-        it.print.warn("BoxZone does not exist for resource: " .. callerResource)
+    if not boxZones[callerResource] or not boxZones[callerResource][boxId] then
+        it.print.error("[RemoveBoxZone] - BoxZone with id:", boxId, "does not exist for resource: ", callerResource)
         return
     end
 
     it.removeBoxZone(boxId)
-    boxZones[callerResource].zoneData.id = nil
+    boxZones[callerResource][boxId] = nil
 end)

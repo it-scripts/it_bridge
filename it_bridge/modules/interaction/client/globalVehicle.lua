@@ -1,9 +1,13 @@
-local globalePedTargets = {}
+local globalVehicleTargets = {}
 
-function it.addGlobalPed(options)
+--- Add a global vehicle interaction.
+--- @param options table Options for the global vehicle interaction.
+--- @return table The names of the options.
+function it.addGlobalVehicle(options)
+
     if it.interaction == Interactions.NONE then
-        it.print.error("No interaction type set.")
-        return
+        it.print.error("[addGlobalVehicle] - No interaction type set.")
+        return {}
     end
 
     if it.interaction == Interactions.OX then
@@ -12,7 +16,7 @@ function it.addGlobalPed(options)
         for _, optionData in pairs(options) do
             table.insert(oxOptions, {
                 label = optionData.label,
-                name = optionData.name,
+                name = optionData.label,
                 icon = optionData.icon,
                 items = optionData.items,
                 groups = optionData.groups,
@@ -28,7 +32,7 @@ function it.addGlobalPed(options)
             })
             table.insert(optionNames, optionData.name)
         end
-        exports.ox_target:addGlobalPed(oxOptions)
+        exports.ox_target:addGlobalVehicle(oxOptions)
         return optionNames
     end
 
@@ -49,57 +53,63 @@ function it.addGlobalPed(options)
                 action = function(entity)
                     optionData.onSelect(entity)
                 end,
+                distance = options.distance,
             })
             table.insert(optionNames, optionData.label)
         end
-        exports[Interactions.QB]:AddGlobalPed({
+        exports[Interactions.QB]:AddTargetModel({
             options = qbOptions,
             distance = options.distance,
         })
         return optionNames
     end
+
+    it.print.error("[addGlobalVehicle] - Invalid interaction type.")
+    return {}
 end
 
-function it.removeGlobalPed(options)
+--- Remove a global vehicle interaction.
+--- @param options table Options for the global vehicle interaction.
+function it.removeGlobalVehicle(options)
 
     if it.interaction == Interactions.NONE then
-        it.print.error("[removeGlobalPed] - No interaction type set.")
+        it.print.error("[removeGlobalVehicle] - No interaction type set.")
         return
     end
 
     if it.interaction == Interactions.OX then
-        exports.ox_target:removeGlobalPed(options)
+        exports.ox_target:removeGlobalVehicle(options)
     end
 
     if it.interaction == Interactions.QB then
-        exports[Interactions.QB]:RemoveGlobalPed(options)
+        exports[Interactions.QB]:RemoveGlobalVehicle(options)
     end
 end
 
-exports("AddGlobalPed", function(options)
+exports("AddGlobalVehicle", function(options)
     local callerResource = GetInvokingResource()
 
     local optionNames = ExtractOptionNames(options)
     if #optionNames == 0 then
-        it.print.error("[AddGlobalPed] - No options found.")
+        it.print.error("[AddGlobalVehicle] - No options found.")
         return
     end
 
     for _, optionName in pairs(optionNames) do
-        if globalePedTargets[optionName] and globalePedTargets[optionName][optionName] then
-            it.print.error("[AddGlobalPed] - GlobalPed option", optionName, "already exists in resource", callerResource)
+        if globalVehicleTargets[callerResource] and globalVehicleTargets[callerResource][optionName] then
+            it.print.error("[AddGlobalVehicle] - GlobalVehicle option", optionName, "already exists in resource", callerResource)
             return
         end
     end
 
-    local addedOptions = it.addGlobalPed(options)
-    globalePedTargets[callerResource] = globalePedTargets[callerResource] or {}
+    local addedOptions = it.addGlobalVehicle(options)
+    globalVehicleTargets[callerResource] = globalVehicleTargets[callerResource] or {}
     for _, optionName in pairs(addedOptions) do
-        globalePedTargets[callerResource][optionName] = true
+        globalVehicleTargets[callerResource][optionName] = true
     end
 end)
 
-exports("RemoveGlobalPed", function(options)
+exports("RemoveGlobalVehicle", function(options)
     local callerResource = GetInvokingResource()
 
     if type(options) == "string" then
@@ -107,14 +117,14 @@ exports("RemoveGlobalPed", function(options)
     end
 
     for _, optionName in pairs(options) do
-        if not globalePedTargets[callerResource] or not globalePedTargets[callerResource][optionName] then
-            it.print.error("[RemoveGlobalPed] - GlobalPed option", optionName, "does not exist in resource", callerResource)
+        if not globalVehicleTargets[callerResource] or not globalVehicleTargets[callerResource][optionName] then
+            it.print.error("[RemoveGlobalVehicle] - GlobalVehicle option", optionName, "does not exist in resource", callerResource)
             return
         end
     end
 
     for _, optionName in pairs(options) do
-        it.removeGlobalPed(optionName)
-        globalePedTargets[callerResource][optionName] = nil
+        it.removeGlobalVehicle(optionName)
+        globalVehicleTargets[callerResource][optionName] = nil
     end
 end)

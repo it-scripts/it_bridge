@@ -33,6 +33,7 @@ function it.openMenu(menuData)
         for _, optionData in pairs(menuData.options) do
             table.insert(options, {
                 title = optionData.title,
+                description = optionData.description,
                 disabled = optionData.disabled,
                 readOnly = optionData.readOnly,
                 onSelect = optionData.onSelect,
@@ -40,7 +41,6 @@ function it.openMenu(menuData)
                 progress = optionData.progress,
                 colorScheme = optionData.colorScheme,
                 arrow = optionData.arrow,
-                description = optionData.description,
                 image = optionData.image,
                 metadata = optionData.metadata,
             })
