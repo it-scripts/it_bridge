@@ -43,7 +43,7 @@ function it.addGlobalVehicle(options)
             table.insert(qbOptions, {
                 label = optionData.label,
                 icon = optionData.icon,
-                item = optionData.items[1],
+                item = optionData.items and optionData.items[1] or nil,
                 job = optionData.job,
                 canInteract = function(entity, distance)
                     if optionData.canInteract then
@@ -57,7 +57,7 @@ function it.addGlobalVehicle(options)
             })
             table.insert(optionNames, optionData.label)
         end
-        exports[Interactions.QB]:AddTargetModel({
+        exports[Interactions.QB]:AddGlobalVehicle({
             options = qbOptions,
             distance = options.distance,
         })
@@ -92,13 +92,13 @@ exports("AddGlobalVehicle", function(options)
     local optionNames = ExtractOptionNames(options)
     if #optionNames == 0 then
         it.print.error("[AddGlobalVehicle] - No options found.")
-        return
+        return nil
     end
 
     for _, optionName in pairs(optionNames) do
         if globalVehicleTargets[callerResource] and globalVehicleTargets[callerResource][optionName] then
             it.print.error("[AddGlobalVehicle] - GlobalVehicle option", optionName, "already exists in resource", callerResource)
-            return
+            return nil
         end
     end
 
@@ -107,6 +107,8 @@ exports("AddGlobalVehicle", function(options)
     for _, optionName in pairs(addedOptions) do
         globalVehicleTargets[callerResource][optionName] = true
     end
+
+    return addedOptions
 end)
 
 exports("RemoveGlobalVehicle", function(options)
@@ -119,7 +121,7 @@ exports("RemoveGlobalVehicle", function(options)
     for _, optionName in pairs(options) do
         if not globalVehicleTargets[callerResource] or not globalVehicleTargets[callerResource][optionName] then
             it.print.error("[RemoveGlobalVehicle] - GlobalVehicle option", optionName, "does not exist in resource", callerResource)
-            return
+            return false
         end
     end
 
@@ -127,4 +129,5 @@ exports("RemoveGlobalVehicle", function(options)
         it.removeGlobalVehicle(optionName)
         globalVehicleTargets[callerResource][optionName] = nil
     end
+    return true
 end)

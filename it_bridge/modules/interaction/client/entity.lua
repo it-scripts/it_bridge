@@ -40,7 +40,7 @@ function it.addTargetEntity(entities, options)
             table.insert(qbOptions, {
                 label = optionData.label,
                 icon = optionData.icon,
-                item = optionData.items[1],
+                item = optionData.items and optionData.items[1] or nil,
                 job = optionData.job,
                 action = function(entity)
                     optionData.onInteract(entity)
@@ -95,7 +95,7 @@ exports('AddTargetEntity', function(entities, options)
                 and entityTargets[callerResource][entity]
                 and entityTargets[callerResource][entity][optionName] then
                 it.print.error("[AddTargetEntity] - Entity option", optionName, "already exists for entity", entity, "in resource", callerResource)
-                return
+                return nil
             end
         end
     end
@@ -108,6 +108,8 @@ exports('AddTargetEntity', function(entities, options)
             entityTargets[callerResource][entity][optionName] = true
         end
     end
+
+    return addedOptions
 end)
 
 exports('RemoveTargetEntity', function(entities, options)
@@ -127,7 +129,7 @@ exports('RemoveTargetEntity', function(entities, options)
                 or not entityTargets[callerResource][entity]
                 or not entityTargets[callerResource][entity][optionName] then
                 it.print.error("[RemoveTargetEntity] - Entity option", optionName, "does not exist for entity", entity, "in resource", callerResource)
-                return
+                return false
             end
         end
     end
@@ -138,4 +140,5 @@ exports('RemoveTargetEntity', function(entities, options)
             entityTargets[callerResource][entity][optionName] = nil
         end
     end
+    return true
 end)

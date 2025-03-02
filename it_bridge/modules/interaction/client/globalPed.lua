@@ -39,7 +39,7 @@ function it.addGlobalPed(options)
             table.insert(qbOptions, {
                 label = optionData.label,
                 icon = optionData.icon,
-                item = optionData.items[1],
+                item = optionData.items and optionData.items[1] or nil,
                 job = optionData.job,
                 canInteract = function(entity, distance)
                     if optionData.canInteract then
@@ -88,15 +88,19 @@ exports("AddGlobalPed", function(options)
     for _, optionName in pairs(optionNames) do
         if globalePedTargets[optionName] and globalePedTargets[optionName][optionName] then
             it.print.error("[AddGlobalPed] - GlobalPed option", optionName, "already exists in resource", callerResource)
-            return
+            return nil
         end
     end
 
     local addedOptions = it.addGlobalPed(options)
-    globalePedTargets[callerResource] = globalePedTargets[callerResource] or {}
-    for _, optionName in pairs(addedOptions) do
-        globalePedTargets[callerResource][optionName] = true
+    if addedOptions then
+        globalePedTargets[callerResource] = globalePedTargets[callerResource] or {}
+        for _, optionName in pairs(addedOptions) do
+            globalePedTargets[callerResource][optionName] = true
+        end
     end
+
+    return addedOptions
 end)
 
 exports("RemoveGlobalPed", function(options)
@@ -109,7 +113,7 @@ exports("RemoveGlobalPed", function(options)
     for _, optionName in pairs(options) do
         if not globalePedTargets[callerResource] or not globalePedTargets[callerResource][optionName] then
             it.print.error("[RemoveGlobalPed] - GlobalPed option", optionName, "does not exist in resource", callerResource)
-            return
+            return false
         end
     end
 
@@ -117,4 +121,5 @@ exports("RemoveGlobalPed", function(options)
         it.removeGlobalPed(optionName)
         globalePedTargets[callerResource][optionName] = nil
     end
+    return true
 end)

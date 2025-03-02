@@ -497,7 +497,7 @@ local function detectTextUI()
     end
 
     if Config.TextUI == AUTO_DETECT then
-        local textUI = detectOKOK() or detectOX() or detectQBCORE() or detectESX() or STANDALONE
+        local textUI = detectOKOK() or detectQBCORE() or detectESX() or detectOX() or STANDALONE
         if textUI == STANDALONE then
             it.print.warn('[it_bridge] No textUI was detected, you will need to integrate it!')
             return

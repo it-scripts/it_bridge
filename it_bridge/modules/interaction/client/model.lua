@@ -41,7 +41,7 @@ function it.addTargetModel(models, options)
             table.insert(qbOptions, {
                 label = optionData.label,
                 icon = optionData.icon,
-                item = optionData.items[1],
+                item = optionData.items and optionData.items[1] or nil,
                 job = optionData.job,
                 action = function(entity)
                     optionData.onInteract(entity)
@@ -95,7 +95,7 @@ exports('AddTargetModel', function(models, options)
         for _, optionName in pairs(optionNames) do
             if modelTargets[callerResource] and modelTargets[callerResource][model] and modelTargets[callerResource][model][optionName] then
                 it.print.error("[AddTargetModel] - Model option", optionName, "already exists for model", model, "in resource", callerResource)
-                return
+                return nil
             end
         end
     end
@@ -108,6 +108,8 @@ exports('AddTargetModel', function(models, options)
             modelTargets[callerResource][model][optionName] = true
         end
     end
+
+    return addedOptions
 end)
 
 exports('RemoveTargetModel', function(models, options)
@@ -125,7 +127,7 @@ exports('RemoveTargetModel', function(models, options)
         for _, optionName in pairs(options) do
             if not modelTargets[callerResource] or not modelTargets[callerResource][model] or not modelTargets[callerResource][model][optionName] then
                 it.print.error("[RemoveTargetModel] - Model option", optionName, "does not exist for model", model, "in resource", callerResource)
-                return
+                return false
             end
         end
     end
@@ -136,4 +138,5 @@ exports('RemoveTargetModel', function(models, options)
             modelTargets[callerResource][model][optionName] = nil
         end
     end
+    return true
 end)

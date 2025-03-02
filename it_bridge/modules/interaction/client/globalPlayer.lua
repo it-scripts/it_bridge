@@ -43,7 +43,7 @@ function it.addGlobalPlayer(options)
             table.insert(qbOptions, {
                 label = optionData.label,
                 icon = optionData.icon,
-                item = optionData.items[1],
+                item = optionData.items and optionData.items[1] or nil,
                 job = optionData.job,
                 action = function(entity)
                     optionData.onInteract(entity)
@@ -93,7 +93,7 @@ exports('AddGlobalPlayer', function(options)
     for _, optionName in pairs(optionNames) do
         if globalPlayerTargets[callerResource] and globalPlayerTargets[callerResource][optionName] then
             lib.print.warn("[addGlobalPlayer] - GlobalPlayer option", optionName, "already exists for resource", callerResource)
-            return
+            return nil
         end
     end
 
@@ -102,6 +102,7 @@ exports('AddGlobalPlayer', function(options)
     for _, optionName in pairs(addedOptions) do
         globalPlayerTargets[callerResource][optionName] = true
     end
+    return addedOptions
 end)
 
 exports('RemoveGlobalPlayer', function(callerResource, options)
@@ -112,7 +113,7 @@ exports('RemoveGlobalPlayer', function(callerResource, options)
     for _, optionName in pairs(options) do
         if not globalPlayerTargets[callerResource] or not globalPlayerTargets[callerResource][optionName] then
             lib.print.warn("[addGlobalPlayer] - GlobalPlayer option", optionName, "does not exist for resource", callerResource)
-            return
+            return false
         end
     end
 
@@ -120,4 +121,6 @@ exports('RemoveGlobalPlayer', function(callerResource, options)
         it.removeGlobalPlayer(optionName)
         globalPlayerTargets[callerResource][optionName] = nil
     end
+
+    return true
 end)

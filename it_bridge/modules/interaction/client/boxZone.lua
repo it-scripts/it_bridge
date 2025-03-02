@@ -47,7 +47,7 @@ function it.createBoxZone(options, boxData)
             table.insert(qbOptions, {
                 label = optionData.label,
                 icon = optionData.icon,
-                item = optionData.items[1],
+                item = optionData.items and optionData.items[1] or nil,
                 job = optionData.job,
                 action = function(entity)
                     optionData.onInteract(entity)
@@ -59,8 +59,11 @@ function it.createBoxZone(options, boxData)
                 end,
             })
         end
+
+        local boxName = boxData.id or math.random(10000, 99999)
+
         exports[Interactions.QB]:AddBoxZone(boxData.id, boxData.coords, boxData.size.x, boxData.size.y, {
-            name = boxData.id or math.random(10000, 99999),
+            name = boxName,
             heading = boxData.rotation,
             debugPoly = boxData.debug,
             maxZ = boxData.maxZ,
@@ -69,13 +72,12 @@ function it.createBoxZone(options, boxData)
             options = qbOptions,
             distance = options.distance,
         })
-        return boxData.id
+        return boxName
     end
 end
 
 
 function it.removeBoxZone(zoneId)
-
     if it.interaction == Interactions.OX then
         exports.ox_target:removeZone(zoneId)
     end
@@ -89,14 +91,11 @@ end
 exports("CreateBoxZone", function(boxData, options)
     local callerResource = GetInvokingResource()
 
-    -- Check of boxZone already exists for this resource
-    if boxZones[callerResource] or boxZones[callerResource][boxData.id] then
-        it.print.error("[CreateBoxZone] - BoxZone with id:", boxData.id, "already exists for resource: ", callerResource)
-        return
-    end
-
     local zone = it.createBoxZone(options, boxData)
-    boxZones[callerResource][boxData.id] = true
+    if not boxZones[callerResource] then
+        boxZones[callerResource] = {}
+    end
+    boxZones[callerResource][zone] = true
     return zone
 end)
 
@@ -104,11 +103,13 @@ exports("RemoveBoxZone", function(boxId)
     local callerResource = GetInvokingResource()
 
     -- Check if boxZone exists
-    if not boxZones[callerResource] or not boxZones[callerResource][boxId] then
+    if not boxZones[callerResource] 
+        or not boxZones[callerResource][boxId] then
         it.print.error("[RemoveBoxZone] - BoxZone with id:", boxId, "does not exist for resource: ", callerResource)
-        return
+        return false
     end
 
     it.removeBoxZone(boxId)
     boxZones[callerResource][boxId] = nil
+    return true
 end)
