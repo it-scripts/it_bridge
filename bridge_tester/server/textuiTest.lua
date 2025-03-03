@@ -1,4 +1,4 @@
-lib.addCommand('textUITest', {
+lib.addCommand('bridgeTextUITest', {
     help = 'Test Bridge target export',
     params = {
         {

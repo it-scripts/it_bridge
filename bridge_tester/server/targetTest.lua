@@ -19,7 +19,7 @@ lib.addCommand('bridgeBoxZone', {
     it.print.info('Spawned new target zone in front of the player', target, 'for the next 15 seconds')
 end)
 
-lib.addCommand('targetEntity', {
+lib.addCommand('bridgeTargetEntity', {
     help = 'Test Bridge target export',
     params = {
         {
@@ -40,7 +40,7 @@ lib.addCommand('targetEntity', {
     it.print.info('Spawned new target entity in front of the player', target, 'for the next 15 seconds')
 end)
 
-lib.addCommand('globalPedTest', {
+lib.addCommand('bridgeGlobalPed', {
     help = 'Test Bridge target export',
     params = {
         {
@@ -61,7 +61,7 @@ lib.addCommand('globalPedTest', {
     it.print.info('Created a global ped target for the player', target, 'for the next 15 seconds (Interact was added to every ped)')
 end)
 
-lib.addCommand('globalPlayer', {
+lib.addCommand('bridgeGlobalPlayer', {
     help = 'Test Bridge target export',
     params = {
         {
@@ -82,7 +82,7 @@ lib.addCommand('globalPlayer', {
     it.print.info('Created a global player target for the player', target, 'for the next 15 seconds (Interact was added to every player)')
 end)
 
-lib.addCommand('globalVehicleTest', {
+lib.addCommand('bridgeGlobalVehicleTest', {
     help = 'Test Bridge target export',
     params = {
         {
@@ -103,7 +103,7 @@ lib.addCommand('globalVehicleTest', {
     it.print.info('Created a global vehicle target for the player', target, 'for the next 15 seconds (Interact was added to every vehicle)')
 end)
 
-lib.addCommand('modelTest', {
+lib.addCommand('bridgeModel', {
     help = 'Test Bridge target export',
     params = {
         {
