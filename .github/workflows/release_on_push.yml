@@ -19,7 +19,7 @@ jobs:
       - name: Extract Version from fxmanifest.lua
         id: version
         run: |
-          VERSION=$(grep -oP "version\s*'\K[^']+" it_bridge/fxmanifest.lua)
+          VERSION=$(grep -oP "version\s*'\K[^']+" it_bridge/fxmanifest.lua | tr -d '\r\n')
           echo "VERSION=v$VERSION" >> $GITHUB_ENV
 
 
