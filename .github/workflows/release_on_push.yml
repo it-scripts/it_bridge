@@ -18,7 +18,10 @@ jobs:
 
       - name: Extract Version from fxmanifest.lua
         id: version
-        run: echo "VERSION=v$(grep -oP "version\s*'\K[^']+" it_bridge/fxmanifest.lua)" >> $GITHUB_ENV
+        run: |
+          VERSION=$(grep -oP "version\s*'\K[^']+" it_bridge/fxmanifest.lua)
+          echo "VERSION=v$VERSION" >> $GITHUB_ENV
+
 
       - name: Create ZIP Archive
         run: zip -r "[it_bridge_pack].zip" . -x "*.git*"
