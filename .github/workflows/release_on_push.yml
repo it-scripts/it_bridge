@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write  # Erlaubt das Erstellen von Tags & Releases
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -13,18 +16,42 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Get Current Date
-        id: date
-        run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+      - name: Extract Version from fxmanifest.lua
+        id: version
+        run: echo "VERSION=v$(grep -oP "version\s*'\K[^']+" it_bridge/fxmanifest.lua)" >> $GITHUB_ENV
 
       - name: Create ZIP Archive
-        run: zip -r repository.zip . -x "*.git*"
+        run: zip -r "[it_bridge_pack].zip" . -x "*.git*"
+
+      - name: Get Previous Tag
+        id: prev_tag
+        continue-on-error: true
+        run: echo "PREV_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")" >> $GITHUB_ENV
+
+      - name: Generate Changelog
+        id: changelog
+        run: |
+          if [ -n "${{ env.PREV_TAG }}" ]; then
+            echo "## Änderungen seit ${{ env.PREV_TAG }}" > changelog.md
+            git log --pretty=format:"- %s (%an)" ${{ env.PREV_TAG }}..HEAD >> changelog.md
+          else
+            echo "## Erstes Release" > changelog.md
+          fi
+
+      - name: Create Git Tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ env.VERSION }}
+          git push origin ${{ env.VERSION }}
 
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          gh release create "release-${{ env.DATE }}" repository.zip \
+          gh release create "${{ env.VERSION }}" "[it_bridge_pack].zip" \
             --repo ${{ github.repository }} \
-            --title "Release ${{ env.DATE }}" \
-            --notes "Automatisch erstellter Release für den Push auf main"
+            --title "Release ${{ env.VERSION }}" \
+            --notes-file changelog.md
