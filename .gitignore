@@ -5,6 +5,8 @@
 .vscode
 .VSCodeCounter
 
+it_bridge/web
+
 ### Lua ###
 # Compiled Lua sources
 luac.out
