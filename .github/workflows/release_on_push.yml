@@ -1,0 +1,30 @@
+name: Auto Release on Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Get Current Date
+        id: date
+        run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+
+      - name: Create ZIP Archive
+        run: zip -r repository.zip . -x "*.git*"
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          gh release create "release-${{ env.DATE }}" repository.zip \
+            --repo ${{ github.repository }} \
+            --title "Release ${{ env.DATE }}" \
+            --notes "Automatisch erstellter Release für den Push auf main"
