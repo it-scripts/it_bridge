@@ -24,7 +24,7 @@ function it.createBoxZone(options, boxData)
                     end
                 end,
                 onSelect = function(data)
-                    optionData.onInteract(data.entity)
+                    optionData.onSelect(data.entity)
                 end,
                 distance = options.distance,
             })

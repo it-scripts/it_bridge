@@ -24,7 +24,7 @@ function it.addTargetModel(models, options)
                     end
                 end,
                 onSelect = function(data)
-                    optionData.onInteract(data.entity)
+                    optionData.onSelect(data.entity)
                 end,
                 distance = options.distance,
             })

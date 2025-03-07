@@ -23,7 +23,7 @@ function it.addTargetEntity(entities, options)
                     end
                 end,
                 onSelect = function(data)
-                    optionData.onInteract(data.entity)
+                    optionData.onSelect(data.entity)
                 end,
                 distance = options.distance,
             })

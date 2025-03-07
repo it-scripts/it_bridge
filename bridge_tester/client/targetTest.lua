@@ -8,7 +8,7 @@ local options = {
         canInteract = function(entity, distance)
             return true
         end,
-        onInteract = function(entity)
+        onSelect = function(entity)
             exports.it_bridge:SendNotification('bridge_tester', 'You tested a target interaction', 'Success', 5000)
         end,
         distance = 1.5
@@ -20,7 +20,7 @@ local options = {
         canInteract = function(entity, distance)
             return true
         end,
-        onInteract = function(entity)
+        onSelect = function(entity)
             exports.it_bridge:SendNotification('bridge_tester', 'You tested a target interaction', 'Success', 5000)
         end,
         distance = 1.5
