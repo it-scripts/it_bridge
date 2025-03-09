@@ -8,7 +8,7 @@ end
 
 local updatePath = nil
 local identifier = GetResourceMetadata(GetCurrentResourceName(), "identifier", 0)
-local version = GetResourceMetadata(GetCurrentResourceName(), "version", 0)
+local version = Config.Version
 local remoteVersionFile = nil
 
 local function checkResourceVersion(err, responseText, headers)
