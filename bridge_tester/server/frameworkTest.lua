@@ -72,7 +72,8 @@ lib.addCommand('bridgeTestFramework', {
     end
 
     if framework == 'qbx_core' then
-        local amount = exports.qbx_core:GetMoney(source, 'bank')
+        local citId = exports.it_bridge:GetCitizenId(target)
+        local amount = exports.qbx_core:GetMoney(citId, 'bank')
         if amount == bank then
             lib.print.info('Step [0.2] - ✅ Success')
         else
