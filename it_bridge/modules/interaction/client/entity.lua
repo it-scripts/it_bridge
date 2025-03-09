@@ -43,7 +43,7 @@ function it.addTargetEntity(entities, options)
                 item = optionData.items and optionData.items[1] or nil,
                 job = optionData.job,
                 action = function(entity)
-                    optionData.onInteract(entity)
+                    optionData.onSelect(entity)
                 end,
                 canInteract = function(entity, distance, _)
                     if optionData.canInteract then

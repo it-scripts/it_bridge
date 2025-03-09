@@ -18,11 +18,9 @@ function it.createBoxZone(options, boxData)
                 icon = optionData.icon,
                 items = optionData.items,
                 groups = optionData.groups,
-                canInteract = function(entity, distance, _, _, _)
-                    if optionData.canInteract then
-                        return optionData.canInteract(entity, distance)
-                    end
-                end,
+                canInteract = optionData.canInteract and function(entity, distance, _, _, _)
+                    return optionData.canInteract(entity, distance)
+                end or nil,
                 onSelect = function(data)
                     optionData.onSelect(data.entity)
                 end,
@@ -50,7 +48,7 @@ function it.createBoxZone(options, boxData)
                 item = optionData.items and optionData.items[1] or nil,
                 job = optionData.job,
                 action = function(entity)
-                    optionData.onInteract(entity)
+                    optionData.onSelect(entity)
                 end,
                 canInteract = function(entity, distance, _)
                     if optionData.canInteract then
