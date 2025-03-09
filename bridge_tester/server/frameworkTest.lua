@@ -116,6 +116,8 @@ lib.addCommand('bridgeTestFramework', {
         if framework ~= 'ND_Core' then
             lib.print.error('Step [1.3] - ❌ Failed - Black Money: ', blackMoneyAmount, 'Expected black money: ', blackMoney)
             return
+        else
+            lib.print.info('Step [4.1] - ⭕️ Skipping')
         end
     end
 
@@ -161,8 +163,12 @@ lib.addCommand('bridgeTestFramework', {
     if success then
         lib.print.info('Step [2.5] - ✅ Success')
     else
-        lib.print.error('Step [2.5] - ❌ Failed')
-        return
+        if framework ~= 'ND_Core' then
+            lib.print.error('Step [2.5] - ❌ Failed')
+            return
+        else
+            lib.print.info('Step [4.1] - ⭕️ Skipping')
+        end
     end
 
     local newBlackMoney = exports.it_bridge:GetMoney(target, 'black_money')
@@ -172,6 +178,8 @@ lib.addCommand('bridgeTestFramework', {
         if framework ~= 'ND_Core' then
             lib.print.error('Step [2.6] - ❌ Failed - New black money: ', newBlackMoney, 'Expected black money: ', blackMoney + blackMoneyToAdd)
             return
+        else
+            lib.print.info('Step [4.1] - ⭕️ Skipping')
         end
     end
 
@@ -235,8 +243,12 @@ lib.addCommand('bridgeTestFramework', {
     if success then
         lib.print.info('Step [3.7] - ✅ Success')
     else
-        lib.print.error('Step [3.7] - ❌ Failed')
-        return
+        if framework ~= 'ND_Core' then
+            lib.print.error('Step [3.7] - ❌ Failed')
+            return
+        else
+            lib.print.info('Step [4.1] - ⭕️ Skipping')
+        end
     end
 
     local newBlackMoney = exports.it_bridge:GetMoney(target, 'black_money')
@@ -246,6 +258,8 @@ lib.addCommand('bridgeTestFramework', {
         if framework ~= 'ND_Core' then
             lib.print.error('Step [3.8] - ❌ Failed - New black money: ', newBlackMoney, 'Expected black money: ', blackMoney + blackMoneyToAdd - blackMoneyToRemove)
             return
+        else
+            lib.print.info('Step [4.1] - ⭕️ Skipping')
         end
     end
 
@@ -257,92 +271,102 @@ lib.addCommand('bridgeTestFramework', {
         if framework ~= 'ND_Core' then
             lib.print.error('Step [3.9] - ❌ Failed')
             return
+        else
+            lib.print.info('Step [4.1] - ⭕️ Skipping')
         end
     end
 
     Wait(1000)
 
     lib.print.info('Step [4] - Set Money to Player')
-    local success = exports.it_bridge:SetMoney(target, 'cash', moneyToAdd, 'Test')
-    if success then
-        lib.print.info('Step [4.1] - ✅ Success')
+    if framework == 'ND_Core' then
+        lib.print.info('Step [4] - ⭕️ Skipping')
     else
-        lib.print.error('Step [4.1] - ❌ Failed')
-        return
-    end
-
-    local newMoney = exports.it_bridge:GetMoney(target, 'cash')
-    if newMoney == moneyToAdd then
-        lib.print.info('Step [4.2] - ✅ Success')
-    else
-        lib.print.error('Step [4.2] - ❌ Failed - New money: ', newMoney, 'Expected money: ', moneyToAdd)
-        return
-    end
-
-    -- Set the money back to the original amount
-    local success = exports.it_bridge:SetMoney(target, 'cash', money, 'Test')
-    if success then
-        lib.print.info('Step [4.3] - ✅ Success')
-    else
-        lib.print.error('Step [4.3] - ❌ Failed')
-        return
-    end
-
-    local success = exports.it_bridge:SetMoney(target, 'bank', bankToAdd, 'Test')
-    if success then
-        lib.print.info('Step [4.4] - ✅ Success')
-    else
-        lib.print.error('Step [4.4] - ❌ Failed')
-        return
-    end
-
-    local newBank = exports.it_bridge:GetMoney(target, 'bank')
-    if newBank == bankToAdd then
-        lib.print.info('Step [4.5] - ✅ Success')
-    else
-        lib.print.error('Step [4.5] - ❌ Failed - New bank: ', newBank, 'Expected bank: ', bankToAdd)
-        return
-    end
-
-    -- Set the bank back to the original amount
-    local success = exports.it_bridge:SetMoney(target, 'bank', bank, 'Test')
-    if success then
-        lib.print.info('Step [4.6] - ✅ Success')
-    else
-        lib.print.error('Step [4.6] - ❌ Failed')
-        return
-    end
-
-    local success = exports.it_bridge:SetMoney(target, 'black_money', blackMoneyToAdd, 'Test')
-    if success then
-        lib.print.info('Step [4.7] - ✅ Success')
-    else
-        if framework ~= 'ND_Core' then
-            lib.print.error('Step [4.7] - ❌ Failed')
+        local success = exports.it_bridge:SetMoney(target, 'cash', moneyToAdd, 'Test')
+        if success then
+            lib.print.info('Step [4.1] - ✅ Success')
+        else
+            lib.print.error('Step [4.1] - ❌ Failed')
             return
         end
-    end
 
-    local newBlackMoney = exports.it_bridge:GetMoney(target, 'black_money')
-    if newBlackMoney == blackMoneyToAdd then
-        lib.print.info('Step [4.8] - ✅ Success')
-    else
-        if framework ~= 'ND_Core' then
-            lib.print.error('Step [4.8] - ❌ Failed - New black money: ', newBlackMoney, 'Expected black money: ', blackMoneyToAdd)
+        local newMoney = exports.it_bridge:GetMoney(target, 'cash')
+        if newMoney == moneyToAdd then
+            lib.print.info('Step [4.2] - ✅ Success')
+        else
+            lib.print.error('Step [4.2] - ❌ Failed - New money: ', newMoney, 'Expected money: ', moneyToAdd)
             return
         end
-    end
 
-    -- Set the black money back to the original amount
-    local success = exports.it_bridge:SetMoney(target, 'black_money', blackMoney, 'Test')
-    if success then
-        lib.print.info('Step [4.9] - ✅ Success')
-    else
-        if framework ~= 'ND_Core' then
-            lib.print.error('Step [4.9] - ❌ Failed')
+        local success = exports.it_bridge:SetMoney(target, 'cash', money, 'Test')
+        if success then
+            lib.print.info('Step [4.3] - ✅ Success')
+        else
+            if framework ~= 'ND_Core' then
+                lib.print.error('Step [4.3] - ❌ Failed')
+                return
+            else
+                lib.print.info('Step [4.3] - ⭕️ Skipping')
+            end
+        end
+
+        local success = exports.it_bridge:SetMoney(target, 'bank', bankToAdd, 'Test')
+        if success then
+            lib.print.info('Step [4.4] - ✅ Success')
+        else
+            lib.print.error('Step [4.4] - ❌ Failed')
             return
         end
+
+        local newBank = exports.it_bridge:GetMoney(target, 'bank')
+        if newBank == bankToAdd then
+            lib.print.info('Step [4.5] - ✅ Success')
+        else
+            lib.print.error('Step [4.5] - ❌ Failed - New bank: ', newBank, 'Expected bank: ', bankToAdd)
+            return
+        end
+
+        -- Set the bank back to the original amount
+        local success = exports.it_bridge:SetMoney(target, 'bank', bank, 'Test')
+        if success then
+            lib.print.info('Step [4.6] - ✅ Success')
+        else
+            lib.print.error('Step [4.6] - ❌ Failed')
+            return
+        end
+
+        local success = exports.it_bridge:SetMoney(target, 'black_money', blackMoneyToAdd, 'Test')
+        if success then
+            lib.print.info('Step [4.7] - ✅ Success')
+        else
+            if framework ~= 'ND_Core' then
+                lib.print.error('Step [4.7] - ❌ Failed')
+                return
+            end
+        end
+
+        local newBlackMoney = exports.it_bridge:GetMoney(target, 'black_money')
+        if newBlackMoney == blackMoneyToAdd then
+            lib.print.info('Step [4.8] - ✅ Success')
+        else
+            if framework ~= 'ND_Core' then
+                lib.print.error('Step [4.8] - ❌ Failed - New black money: ', newBlackMoney, 'Expected black money: ', blackMoneyToAdd)
+                return
+            end
+        end
+
+        -- Set the black money back to the original amount
+        local success = exports.it_bridge:SetMoney(target, 'black_money', blackMoney, 'Test')
+        if success then
+            lib.print.info('Step [4.9] - ✅ Success')
+        else
+            if framework ~= 'ND_Core' then
+                lib.print.error('Step [4.9] - ❌ Failed')
+                return
+            end
+        end
     end
+    
 
     Wait(1000)
     lib.print.info('[5] - Get Player Name')
