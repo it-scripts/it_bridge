@@ -1,11 +1,11 @@
 local consumableItems = {}
 
-function it.createUsableItems(itemName, cb)
+function it.createUsableItem(itemName, cb)
 
-    if consumableItems[itemName] then
+    --[[ if consumableItems[itemName] then
         it.print.error('The item ' .. itemName .. ' is already registered as a consumable item')
         return
-    end
+    end ]]
 
     if it.inventory == Inventories.QS then
         if it.getItemLabel(itemName) then
@@ -35,7 +35,7 @@ function it.createUsableItems(itemName, cb)
     if it.framework == Framework.QBCore then
         local itemLabel = it.getItemLabel(itemName)
         if itemLabel then
-            exports['qb-core']:RegisterUsableItem(itemName, cb)
+            CoreObject.Functions.CreateUseableItem(itemName, cb)
             consumableItems[itemName] = cb
             return
         end
@@ -43,6 +43,6 @@ function it.createUsableItems(itemName, cb)
     it.print.error('Failed to create usable item: ' .. itemName)
 end
 
-exports('CreateUsableItems', function(itemName, cb)
-    it.createUsableItems(itemName, cb)
+exports('CreateUsableItem', function(itemName, cb)
+    it.createUsableItem(itemName, cb)
 end)
