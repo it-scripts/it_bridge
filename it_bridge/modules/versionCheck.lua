@@ -38,7 +38,7 @@ local function checkResourceVersion(err, responseText, headers)
         textui = it.textui
     end
     local distpach = '^8NONE'
-    if it.disptach then
+    if it.dispatch then
         distpach = it.dispatch
     end
 
