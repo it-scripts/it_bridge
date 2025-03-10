@@ -22,8 +22,34 @@ function it.canCarryItem(source, item, amount)
     end
 
     if it.inventory == Inventories.PS then
-        local canCarryItem = exports['ps-inventory']:CanAddItem(source, item, amount)
-        if canCarryItem then return true else return false end
+        local Player = CoreObject.Functions.GetPlayer(source)
+        local itemData = CoreObject.Shared.Items[item:lower()]
+        if not itemData then it.print.error('[canCarryItem] - No itemData Found!') return true end
+
+        -- Get Config Table from the ps-inventory config.lua file
+        local psConfigFile = LoadResourceFile('ps-inventory', 'config.lua')
+        local psConfig = json.decode(psConfigFile)
+        
+        local inventory, items
+        if Player then
+            inventory = {
+                maxWeight = psConfig.defaultWeight,
+                slots = psConfig.defaultSlots,
+            }
+            items = Player.PlayerData.items
+        end
+
+        if not inventory then
+            it.print.error('[canCarryItem] - Unable to load the player inventory. Please contact the developer.')
+            return true
+        end
+
+        local weight = itemData.weight * amount
+        local totalWeight = exports['ps-inventory']:GetTotalWeight(items) + weight
+        if totalWeight > inventory.maxWeight then
+            return false
+        end
+        return true
     end
 
     if it.inventory == Inventories.QS then
