@@ -25,8 +25,16 @@ function it.getItemCount(source, item, metadata)
     end
 
     if it.inventory == Inventories.PS then
-        local itemCount = exports['ps-inventory']:GetItemCount(source, item)
-        if itemCount then return itemCount end
+        local Player = CoreObject.Functions.GetPlayer(source)
+        if not Player then it.print.error('[getItemCount] - Unable to load Playerdata') return 0 end
+        local count = 0
+        for _, item in pairs(Player.PlayerData.items) do
+            if item.name == item then
+                count = item.amount
+                break
+            end
+        end
+        return count
     end
 
     if it.inventory == Inventories.QS then
