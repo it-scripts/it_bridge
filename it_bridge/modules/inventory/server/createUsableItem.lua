@@ -9,15 +9,7 @@ function it.createUsableItem(itemName, cb)
 
     if it.inventory == Inventories.QS then
         if it.getItemLabel(itemName) then
-            exports['qs-inventory']:registerUsableItem(itemName, cb)
-            consumableItems[itemName] = cb
-            return
-        end
-    end
-
-    if it.inventory == Inventories.ORIGEN then
-        if it.getItemLabel(itemName) then
-            exports.origen_inventory:CreateUseableItem(itemName, cb)
+            exports['qs-inventory']:CreateUsableItem(itemName, cb)
             consumableItems[itemName] = cb
             return
         end
