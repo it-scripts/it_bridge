@@ -1,4 +1,4 @@
-RegisterNetEvent('bridge_tester:client:notifyTest', function(args)
+RegisterNetEvent('bridge_tester:client:notifyTestMenu', function(args)
     exports.it_bridge:SendNotification(args.title, args.message, args.duration, args.type, args.sound)
 end)
 
@@ -13,10 +13,10 @@ RegisterNetEvent('bridge_tester:client:menuTest', function()
                 description = 'Send a success notification',
                 icon = 'fas fa-check',
                 onSelect = function()
-                    exports.it_bridge:SendNotification('Success', 'This is a success notification', 5000, 'Success', false)
+                    exports.it_bridge:SendNotification('Success', 'This is a notification', 5000, 'Success', false)
                 end,
                 params = {
-                    event = 'bridge_tester:client:notifyTest',
+                    event = 'bridge_tester:client:notifyTestMenu',
                     args = {
                         title = 'Success',
                         message = 'This is a success notification',
@@ -34,7 +34,7 @@ RegisterNetEvent('bridge_tester:client:menuTest', function()
                     exports.it_bridge:SendNotification('Error', 'This is an error notification', 5000, 'Error', false)
                 end,
                 params = {
-                    event = 'bridge_tester:client:notifyTest',
+                    event = 'bridge_tester:client:notifyTestMenu',
                     args = {
                         title = 'Error',
                         message = 'This is an error notification',
@@ -52,7 +52,7 @@ RegisterNetEvent('bridge_tester:client:menuTest', function()
                     exports.it_bridge:SendNotification('Info', 'This is an info notification', 5000, 'Info', false)
                 end,
                 params = {
-                    event = 'bridge_tester:client:notifyTest',
+                    event = 'bridge_tester:client:notifyTestMenu',
                     args = {
                         title = 'Info',
                         message = 'This is an info notification',
@@ -70,7 +70,7 @@ RegisterNetEvent('bridge_tester:client:menuTest', function()
                     exports.it_bridge:SendNotification('Warning', 'This is an Warning notification', 5000, 'Warning', false)
                 end,
                 params = {
-                    event = 'bridge_tester:client:notifyTest',
+                    event = 'bridge_tester:client:notifyTestMenu',
                     args = {
                         title = 'Warning',
                         message = 'This is a warning notification',
