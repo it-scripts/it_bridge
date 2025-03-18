@@ -119,5 +119,6 @@ Config.Menus = AUTO_DETECT
 
 Config.Dispatches = AUTO_DETECT
 
-Config.Version = '1.0.2' -- Do not change this value
+
+Config.Debug = false
 Config.VersionCheck = true

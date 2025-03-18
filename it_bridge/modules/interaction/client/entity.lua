@@ -94,7 +94,10 @@ exports('AddTargetEntity', function(entities, options)
             if entityTargets[callerResource]
                 and entityTargets[callerResource][entity]
                 and entityTargets[callerResource][entity][optionName] then
-                it.print.error("[AddTargetEntity] - Entity option", optionName, "already exists for entity", entity, "in resource", callerResource)
+                    if Config.Debug then
+                        it.print.warn("[AddTargetEntity] - Entity option", optionName, "already exists for entity", entity, "in resource", callerResource)
+                        it.print.debug("If you want to hide this message set Config.Debug to false.")
+                    end
                 return nil
             end
         end
@@ -128,7 +131,10 @@ exports('RemoveTargetEntity', function(entities, options)
             if not entityTargets[callerResource]
                 or not entityTargets[callerResource][entity]
                 or not entityTargets[callerResource][entity][optionName] then
-                it.print.error("[RemoveTargetEntity] - Entity option", optionName, "does not exist for entity", entity, "in resource", callerResource)
+                if Config.Debug then
+                    it.print.warn("[RemoveTargetEntity] - Entity option", optionName, "does not exist for entity", entity, "in resource", callerResource)
+                    it.print.debug("If you want to hide this message set Config.Debug to false.")
+                end
                 return false
             end
         end

@@ -103,7 +103,10 @@ exports("RemoveBoxZone", function(boxId)
     -- Check if boxZone exists
     if not boxZones[callerResource] 
         or not boxZones[callerResource][boxId] then
-        it.print.error("[RemoveBoxZone] - BoxZone with id:", boxId, "does not exist for resource: ", callerResource)
+        if Config.Debug then
+            it.print.warn("[RemoveBoxZone] - BoxZone with id:", boxId, "does not exist for resource: ", callerResource)
+            it.print.debug("If you want to hide this message set Config.Debug to false.")
+        end
         return false
     end
 

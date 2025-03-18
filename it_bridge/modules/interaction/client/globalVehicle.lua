@@ -97,7 +97,10 @@ exports("AddGlobalVehicle", function(options)
 
     for _, optionName in pairs(optionNames) do
         if globalVehicleTargets[callerResource] and globalVehicleTargets[callerResource][optionName] then
-            it.print.error("[AddGlobalVehicle] - GlobalVehicle option", optionName, "already exists in resource", callerResource)
+            if Config.Debug then
+                it.print.warn("[AddGlobalVehicle] - GlobalVehicle option", optionName, "already exists in resource", callerResource)
+                it.print.debug("If you want to hide this message set Config.Debug to false.")
+            end
             return nil
         end
     end
@@ -120,7 +123,10 @@ exports("RemoveGlobalVehicle", function(options)
 
     for _, optionName in pairs(options) do
         if not globalVehicleTargets[callerResource] or not globalVehicleTargets[callerResource][optionName] then
-            it.print.error("[RemoveGlobalVehicle] - GlobalVehicle option", optionName, "does not exist in resource", callerResource)
+            if Config.Debug then
+                it.print.warn("[RemoveGlobalVehicle] - GlobalVehicle option", optionName, "does not exist in resource", callerResource)
+                it.print.debug("If you want to hide this message set Config.Debug to false.")
+            end
             return false
         end
     end

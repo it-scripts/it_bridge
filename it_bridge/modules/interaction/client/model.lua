@@ -94,7 +94,10 @@ exports('AddTargetModel', function(models, options)
     for _, model in pairs(models) do
         for _, optionName in pairs(optionNames) do
             if modelTargets[callerResource] and modelTargets[callerResource][model] and modelTargets[callerResource][model][optionName] then
-                it.print.error("[AddTargetModel] - Model option", optionName, "already exists for model", model, "in resource", callerResource)
+                if Config.Debug then
+                    it.print.warn("[AddTargetModel] - Model option", optionName, "already exists for model", model, "in resource", callerResource)
+                    it.print.debug("If you want to hide this message set Config.Debug to false.")
+                end
                 return nil
             end
         end
@@ -126,7 +129,10 @@ exports('RemoveTargetModel', function(models, options)
     for _, model in pairs(models) do
         for _, optionName in pairs(options) do
             if not modelTargets[callerResource] or not modelTargets[callerResource][model] or not modelTargets[callerResource][model][optionName] then
-                it.print.error("[RemoveTargetModel] - Model option", optionName, "does not exist for model", model, "in resource", callerResource)
+                if Config.Debug then
+                    it.print.warn("[RemoveTargetModel] - Model option", optionName, "does not exist for model", model, "in resource", callerResource)
+                    it.print.debug("If you want to hide this message set Config.Debug to false.")
+                end
                 return false
             end
         end

@@ -92,7 +92,10 @@ exports('AddGlobalPlayer', function(options)
     local optionNames = ExtractOptionNames(options)
     for _, optionName in pairs(optionNames) do
         if globalPlayerTargets[callerResource] and globalPlayerTargets[callerResource][optionName] then
-            lib.print.warn("[addGlobalPlayer] - GlobalPlayer option", optionName, "already exists for resource", callerResource)
+            if Config.Debug then
+                lib.print.warn("[addGlobalPlayer] - GlobalPlayer option", optionName, "already exists for resource", callerResource)
+                it.print.debug("If you want to hide this message set Config.Debug to false.")
+            end
             return nil
         end
     end
@@ -112,7 +115,10 @@ exports('RemoveGlobalPlayer', function(callerResource, options)
 
     for _, optionName in pairs(options) do
         if not globalPlayerTargets[callerResource] or not globalPlayerTargets[callerResource][optionName] then
-            lib.print.warn("[addGlobalPlayer] - GlobalPlayer option", optionName, "does not exist for resource", callerResource)
+            if Config.Debug then
+                lib.print.warn("[addGlobalPlayer] - GlobalPlayer option", optionName, "does not exist for resource", callerResource)
+                it.print.debug("If you want to hide this message set Config.Debug to false.")
+            end
             return false
         end
     end

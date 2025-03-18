@@ -87,7 +87,10 @@ exports("AddGlobalPed", function(options)
 
     for _, optionName in pairs(optionNames) do
         if globalePedTargets[optionName] and globalePedTargets[optionName][optionName] then
-            it.print.error("[AddGlobalPed] - GlobalPed option", optionName, "already exists in resource", callerResource)
+            if Config.Debug then
+                it.print.warn("[AddGlobalPed] - GlobalPed option", optionName, "already exists in resource", callerResource)
+                it.print.debug("If you want to hide this message set Config.Debug to false.")
+            end
             return nil
         end
     end
@@ -112,7 +115,10 @@ exports("RemoveGlobalPed", function(options)
 
     for _, optionName in pairs(options) do
         if not globalePedTargets[callerResource] or not globalePedTargets[callerResource][optionName] then
-            it.print.error("[RemoveGlobalPed] - GlobalPed option", optionName, "does not exist in resource", callerResource)
+            if Config.Debug then
+                it.print.warn("[RemoveGlobalPed] - GlobalPed option", optionName, "does not exist in resource", callerResource)
+                it.print.debug("If you want to hide this message set Config.Debug to false.")
+            end
             return false
         end
     end
