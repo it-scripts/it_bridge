@@ -11,7 +11,7 @@
 --- @return table | nil
 local function detectFramework()
     local function detectESX()
-        if GetResourceState('es_extended') == 'started' then
+        if GetResourceState('es_extended') ~= 'missing' then
             local esx = exports['es_extended']:getSharedObject()
             if esx then
                 it.framework = Framework.ESX
@@ -21,7 +21,7 @@ local function detectFramework()
     end
 
     local function detectQBCore()
-        if GetResourceState('qb-core') == 'started' then
+        if GetResourceState('qb-core') ~= 'missing' then
             local qbCore = exports['qb-core']:GetCoreObject()
             if qbCore then
                 it.framework = Framework.QBCore
@@ -31,14 +31,14 @@ local function detectFramework()
     end
 
     local function detectQBOX()
-        if GetResourceState('qbx_core') == 'started' then
+        if GetResourceState('qbx_core') ~= 'missing' then
             it.framework = Framework.QBOX
             return Framework.QBOX
         end
     end
 
     local function detectNDCore()
-        if GetResourceState('ND_Core') == 'started' then
+        if GetResourceState('ND_Core') ~= 'missing' then
             local ndCore = exports['ND_Core']:GetCoreObject()
             if ndCore then
                 it.framework = Framework.NDCore
@@ -106,49 +106,49 @@ end
 --- @return table | nil
 local function detectInventory()
     local function detectPS()
-        if GetResourceState('ps-inventory') == 'started' then
+        if GetResourceState('ps-inventory') ~= 'missing' then
             it.inventory = Inventories.PS
             return Inventories.PS
         end
     end
 
     local function detectQS()
-        if GetResourceState('qs-inventory') == 'started' then
+        if GetResourceState('qs-inventory') ~= 'missing' then
             it.inventory = Inventories.QS
             return Inventories.QS
         end
     end
 
     local function detectOX()
-        if GetResourceState('ox_inventory') == 'started' then
+        if GetResourceState('ox_inventory') ~= 'missing' then
             it.inventory = Inventories.OX
             return Inventories.OX
         end
     end
 
     local function detectCODEM()
-        if GetResourceState('codem-inventory') == 'started' then
+        if GetResourceState('codem-inventory') ~= 'missing' then
             it.inventory = Inventories.CODEM
             return Inventories.CODEM
         end
     end
 
     local function detectORIGEN()
-        if GetResourceState('origen-inventory') == 'started' then
+        if GetResourceState('origen-inventory') ~= 'missing' then
             it.inventory = Inventories.ORIGEN
             return Inventories.ORIGEN
         end
     end
 
     local function detectESX()
-        if GetResourceState('es_extended') == 'started' then
+        if GetResourceState('es_extended') ~= 'missing' then
             it.inventory = Inventories.ESX
             return Inventories.ESX
         end
     end
 
     local function detectQB()
-        if GetResourceState('qb-inventory') == 'started' then
+        if GetResourceState('qb-inventory') ~= 'missing' then
             it.inventory = Inventories.QB
             return Inventories.QB
         end
@@ -241,29 +241,21 @@ end
 --- @return table | nil
 local function detectInteractions()
     local function detectOX()
-        if GetResourceState('ox_target') == 'started' then
+        if GetResourceState('ox_target') ~= 'missing' then
             it.interaction = Interactions.OX
             return Interactions.OX
         end
     end
 
     local function detectQB()
-        if GetResourceState('qb-target') == 'started' then
+        if GetResourceState('qb-target') ~= 'missing' then
             it.interaction = Interactions.QB
             return Interactions.QB
         end
     end
 
-    local function detectMV()
-        if GetResourceState('ps-inventory') == 'started' then
-            it.interaction = Interactions.MV
-            return Interactions.MV
-           
-        end
-    end
-
     if Config.Interactions == AUTO_DETECT then
-        local interaction = detectQB() or detectMV() or detectOX() or STANDALONE
+        local interaction = detectQB() or detectOX() or STANDALONE
         if interaction == STANDALONE then
             it.print.warn('[it_bridge] No interaction was detected, you will need to integrate it!')
             return
@@ -318,63 +310,63 @@ end
 --- @return table | nil
 local function detectNotify()
     local function detectBRUTAL()
-        if GetResourceState('brutal_notify') == 'started' then
+        if GetResourceState('brutal_notify') ~= 'missing' then
             it.notify = Notifications.BRUTAL
             return Notifications.BRUTAL
         end
     end
 
     local function detectPNOTIFY()
-        if GetResourceState('qb-pNotify') == 'started' then
+        if GetResourceState('qb-pNotify') ~= 'missing' then
             it.notify = Notifications.PNOTIFY
             return Notifications.PNOTIFY
         end
     end
 
     local function detectOX()
-        if GetResourceState('ox_lib') == 'started' then
+        if GetResourceState('ox_lib') ~= 'missing' then
             it.notify = Notifications.OX
             return Notifications.OX
         end
     end
 
     local function detectESX_NOTIFY()
-        if GetResourceState('esx_notify') == 'started' then
+        if GetResourceState('esx_notify') ~= 'missing' then
             it.notify = Notifications.ESX_NOTIFY
             return Notifications.ESX_NOTIFY
         end
     end
 
     local function detectQBCORE()
-        if GetResourceState('qb-core') == 'started' then
+        if GetResourceState('qb-core') ~= 'missing' then
             it.notify = Notifications.QBCORE
             return Notifications.QBCORE
         end
     end
 
     local function detectESX()
-        if GetResourceState('es_extended') == 'started' then
+        if GetResourceState('es_extended') ~= 'missing' then
             it.notify = Notifications.ESX
             return Notifications.ESX
         end
     end
 
     local function detectMYTHIC()
-        if GetResourceState('mythic_notify') == 'started' then
+        if GetResourceState('mythic_notify') ~= 'missing' then
             it.notify = Notifications.MYTHIC
             return Notifications.MYTHIC
         end
     end
 
     local function detectOKOK()
-        if GetResourceState('okokNotify') == 'started' then
+        if GetResourceState('okokNotify') ~= 'missing' then
             it.notify = Notifications.OKOK
             return Notifications.OKOK
         end
     end
 
     if Config.Notifications == AUTO_DETECT then
-        local notify = detectBRUTAL() or detectPNOTIFY() or detectMYTHIC() or detectOKOK() or detectOX() or detectESX_NOTIFY() or detectESX() or detectQBCORE() or STANDALONE
+        local notify = detectBRUTAL() or detectPNOTIFY() or detectMYTHIC() or detectOKOK() or detectESX_NOTIFY() or detectESX() or detectQBCORE() or detectOX() or STANDALONE
         if notify == STANDALONE then
             it.print.warn('[it_bridge] No notify was detected, you will need to integrate it!')
             return
@@ -469,35 +461,35 @@ end
 -- @return string | nil
 local function detectTextUI()
     local function detectOX()
-        if GetResourceState('ox_lib') == 'started' then
+        if GetResourceState('ox_lib') ~= 'missing' then
             it.textui = TextUI.OX
             return TextUI.OX
         end
     end
 
     local function detectQBCORE()
-        if GetResourceState('qb-core') == 'started' then
+        if GetResourceState('qb-core') ~= 'missing' then
             it.textui = TextUI.QBCORE
             return TextUI.QBCORE
         end
     end
 
     local function detectESX()
-        if GetResourceState('esx_textui') == 'started' then
+        if GetResourceState('esx_textui') ~= 'missing' then
             it.textui = TextUI.ESX
             return TextUI.ESX
         end
     end
 
     local function detectOKOK()
-        if GetResourceState('okokTextUI') == 'started' then
+        if GetResourceState('okokTextUI') ~= 'missing' then
             it.textui = TextUI.OKOK
             return TextUI.OKOK
         end
     end
 
     if Config.TextUI == AUTO_DETECT then
-        local textUI = detectOKOK() or detectQBCORE() or detectESX() or detectOX() or STANDALONE
+        local textUI = detectOKOK() or detectQBCORE() or detectESX() or detectQBCORE() or detectOX() or STANDALONE
         if textUI == STANDALONE then
             it.print.warn('[it_bridge] No textUI was detected, you will need to integrate it!')
             return
@@ -556,28 +548,28 @@ end
 --- @return string | nil
 local function detectMenu()
     local function detectESX_CONTEXT()
-        if GetResourceState('esx_context') == 'started' then
+        if GetResourceState('esx_context') ~= 'missing' then
             it.menu = Menus.ESX_CONTEXT
             return Menus.ESX_CONTEXT
         end
     end
 
     local function detectOX()
-        if GetResourceState('ox_lib') == 'started' then
+        if GetResourceState('ox_lib') ~= 'missing' then
             it.menu = Menus.OX
             return Menus.OX
         end
     end
 
     local function detectQB()
-        if GetResourceState('qb-menu') == 'started' then
+        if GetResourceState('qb-menu') ~= 'missing' then
             it.menu = Menus.QB
             return Menus.QB
         end
     end
 
     if Config.Menus == AUTO_DETECT then
-        local menu = detectOX() or detectESX_CONTEXT() or detectQB() or STANDALONE
+        local menu = detectESX_CONTEXT() or detectQB() or detectOX() or STANDALONE
         if menu == STANDALONE then
             it.print.warn('[it_bridge] No menu was detected, you will need to integrate it!')
             return
@@ -628,49 +620,49 @@ end
 --- @return table | nil
 local function detectDispatch()
     local function detectQS()
-        if GetResourceState('qs-dispatch') == 'started' then
+        if GetResourceState('qs-dispatch') ~= 'missing' then
             it.dispatch = Dispatches.QS
             return Dispatches.QS
         end
     end
 
     local function detectPS()
-        if GetResourceState('ps-dispatch') == 'started' then
+        if GetResourceState('ps-dispatch') ~= 'missing' then
             it.dispatch = Dispatches.PS
             return Dispatches.PS
         end
     end
 
     local function detectCD()
-        if GetResourceState('cd-dispatch') == 'started' then
+        if GetResourceState('cd-dispatch') ~= 'missing' then
             it.dispatch = Dispatches.CD
             return Dispatches.CD  
         end
     end
 
     local function detectCORE()
-        if GetResourceState('core_dispatch') == 'started' then
+        if GetResourceState('core_dispatch') ~= 'missing' then
             it.dispatch = Dispatches.CORE
             return Dispatches.CORE
         end
     end
 
     local function detectCODEM()
-        if GetResourceState('codem_dispatch') == 'started' then
+        if GetResourceState('codem_dispatch') ~= 'missing' then
             it.dispatch = Dispatches.CODEM
             return  Dispatches.CODEM
         end
     end
 
     local function detectLOVE_SCRIPTS()
-        if GetResourceState('emergencydispatch') == 'started' then
+        if GetResourceState('emergencydispatch') ~= 'missing' then
             it.dispatch = Dispatches.LOVE_SCRIPTS
             return Dispatches.LOVE_SCRIPTS
         end
     end
 
     local function detectORIGEN()
-        if GetResourceState('origen_police') == 'started' then
+        if GetResourceState('origen_police') ~= 'missing' then
             it.dispatch = Dispatches.ORIGEN
             return Dispatches.ORIGEN
         end
@@ -699,7 +691,6 @@ local function detectDispatch()
         local psDispatch = detectPS()
         while not psDispatch do
             it.print.error('[it_bridge] PS-Dispatch was selected as the dispatch, but the resource was not found or not started!')
-            Wait(5000)
             return
         end
         return psDispatch
