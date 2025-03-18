@@ -13,6 +13,8 @@ cache = {
     version = GetResourceMetadata(it.name, 'version', 0),
 }
 
+CURRENT_VERSION = '1.0.3'
+
 STANDALONE = 'standalone'
 AUTO_DETECT = 'auto-detect'
 

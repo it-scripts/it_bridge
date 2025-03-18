@@ -8,7 +8,7 @@ end
 
 local updatePath = nil
 local identifier = GetResourceMetadata(GetCurrentResourceName(), "identifier", 0)
-local version = Config.Version
+local version = CURRENT_VERSION
 local remoteVersionFile = nil
 
 local function checkResourceVersion(err, responseText, headers)
@@ -80,7 +80,7 @@ local function checkResourceVersion(err, responseText, headers)
         print('^5═════════════════════[ Version Check ]═══════════════════════^7')
         print(' ')
         print("         ^2[it_bridge] - The Script is up to date!")
-        print("         ^7Current Version: ^4" .. remoteVersionFile.version .. "^7.")
+        print("         ^7Current Version: ^4" .. version .. "^7.")
         print(' ')
         print("^5═════════════════════════════════════════════════════════════^7")
         return
