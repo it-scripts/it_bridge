@@ -42,30 +42,37 @@ local function checkResourceVersion(err, responseText, headers)
         distpach = it.dispatch
     end
 
-    
-    print('^5═════════════════════════════════════════════════════════════^7')
-    print('^6██╗████████╗     ██████╗ ██████╗ ██╗██████╗  ██████╗ ███████╗^7')
-    print('^6██║╚══██╔══╝     ██╔══██╗██╔══██╗██║██╔══██╗██╔════╝ ██╔════╝^7')
-    print('^6██║   ██║        ██████╔╝██████╔╝██║██║  ██║██║  ███╗█████╗^7')
-    print('^6██║   ██║        ██╔══██╗██╔══██╗██║██║  ██║██║   ██║██╔══╝^7')
-    print('^6██║   ██║███████╗██████╔╝██║  ██║██║██████╔╝╚██████╔╝███████╗^7')
-    print('^6╚═╝   ╚═╝╚══════╝╚═════╝ ╚═╝  ╚═╝╚═╝╚═════╝  ╚═════╝ ╚══════╝^7')
-    print('^5═════════════════════════════════════════════════════════════^7')
-    print(' ')
-    print('         ^6Discord > https://discord.it-scripts.com')
-    print('         ^6GitHub > https://github.it-scripts.com')
-    print('         ^6Tebex > https://it-scripts.tebex.io')
-    print(' ')
-    print('^5═════════════════════════[ Settings ]════════════════════════^7')
-    print(' ')
-    print('         ^6[1] - Framework:    ^2'..framework)
-    print('         ^6[2] - Inventory:    ^2'..inventory)
-    print('         ^6[3] - Interaction:  ^2'..interaction)
-    print('         ^6[4] - Menu:         ^2'..menu)
-    print('         ^6[5] - Notification: ^2'..notify)
-    print('         ^6[5] - TextUI:       ^2'..textui)
-    print('         ^6[6] - Distpach:     ^2'..distpach)
-    print(' ')
+    if Config.MinimizeStartup == nil then
+        it.print.error("Please set the Config.MinimizeStartup to true or false in config.lua")
+        Config.MinimizeStartup = true
+        return
+    end
+
+    if Config.MinimizeStartup == true then
+        print('^5═════════════════════════════════════════════════════════════^7')
+        print('^6██╗████████╗     ██████╗ ██████╗ ██╗██████╗  ██████╗ ███████╗^7')
+        print('^6██║╚══██╔══╝     ██╔══██╗██╔══██╗██║██╔══██╗██╔════╝ ██╔════╝^7')
+        print('^6██║   ██║        ██████╔╝██████╔╝██║██║  ██║██║  ███╗█████╗^7')
+        print('^6██║   ██║        ██╔══██╗██╔══██╗██║██║  ██║██║   ██║██╔══╝^7')
+        print('^6██║   ██║███████╗██████╔╝██║  ██║██║██████╔╝╚██████╔╝███████╗^7')
+        print('^6╚═╝   ╚═╝╚══════╝╚═════╝ ╚═╝  ╚═╝╚═╝╚═════╝  ╚═════╝ ╚══════╝^7')
+        print('^5═════════════════════════════════════════════════════════════^7')
+        print(' ')
+        print('         ^6Discord > https://discord.it-scripts.com')
+        print('         ^6GitHub > https://github.it-scripts.com')
+        print('         ^6Tebex > https://it-scripts.tebex.io')
+        print(' ')
+        print('^5═════════════════════════[ Settings ]════════════════════════^7')
+        print(' ')
+        print('         ^6[1] - Framework:    ^2'..framework)
+        print('         ^6[2] - Inventory:    ^2'..inventory)
+        print('         ^6[3] - Interaction:  ^2'..interaction)
+        print('         ^6[4] - Menu:         ^2'..menu)
+        print('         ^6[5] - Notification: ^2'..notify)
+        print('         ^6[5] - TextUI:       ^2'..textui)
+        print('         ^6[6] - Distpach:     ^2'..distpach)
+        print(' ')
+    end
 
     remoteVersionFile = parseJson(responseText)
     if responseText == nil or remoteVersionFile == nil then

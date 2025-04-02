@@ -1,4 +1,6 @@
-function it.getPlayerName(player)
+function it.getPlayerName(source)
+
+    local player = it.getPlayer(source)
     if not player then
         it.print.error("Failed to get player name: " .. player)
         return
@@ -35,6 +37,10 @@ function it.getPlayerName(player)
     it.print.error("Failed to get player name from player: " .. player)
     return nil
 end
+
+lib.callback.register('it_bridge:callback:getPlayerName', function(source)
+    return it.getPlayerName(source)
+end)
 
 exports('GetPlayerName', function(player)
     return it.getPlayerName(player)

@@ -134,7 +134,7 @@ local function detectInventory()
     end
 
     local function detectORIGEN()
-        if GetResourceState('origen-inventory') ~= 'missing' then
+        if GetResourceState('origen_inventory') ~= 'missing' then
             it.inventory = Inventories.ORIGEN
             return Inventories.ORIGEN
         end
@@ -221,7 +221,7 @@ local function detectInventory()
     if Config.Inventories == Inventories.ORIGEN then
         local origenInventory = detectORIGEN()
         if not origenInventory then
-            it.print.error('[it_bridge] ORIGEN-Inventory was selected as the inventory, but the resource was not found or not started!')
+            it.print.error('[it_bridge] origen_inventory was selected as the inventory, but the resource was not found or not started!')
             return
         end
         return origenInventory

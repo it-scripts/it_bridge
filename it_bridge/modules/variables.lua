@@ -13,7 +13,7 @@ cache = {
     version = GetResourceMetadata(it.name, 'version', 0),
 }
 
-CURRENT_VERSION = '1.0.3'
+CURRENT_VERSION = '1.0.4'
 
 STANDALONE = 'standalone'
 AUTO_DETECT = 'auto-detect'
@@ -32,7 +32,7 @@ Inventories = {
     QS = 'qs-inventory',
     OX = 'ox_inventory',
     CODEM = 'codem-inventory',
-    ORIGEN = 'origen-inventory',
+    ORIGEN = 'origen_inventory',
 }
 
 Interactions = {

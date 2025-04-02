@@ -45,7 +45,7 @@ Config.InventoryImgPath = {
     [Inventories.QS]   = "qs-inventory/html/images/",
     [Inventories.OX]   = "ox_inventory/web/images/",
     [Inventories.CODEM] = "codem-inventory/html/images/",
-    [Inventories.ORIGEN] = "origen-inventory/html/images/",
+    [Inventories.ORIGEN] = "origen_inventory/html/images/",
 }
 
 --[[
@@ -119,6 +119,6 @@ Config.Menus = AUTO_DETECT
 
 Config.Dispatches = AUTO_DETECT
 
-
+Config.MinimizeStartup = false
 Config.Debug = false
 Config.VersionCheck = true

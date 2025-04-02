@@ -38,6 +38,10 @@ function it.getCitizenId(source)
     return nil
 end
 
+lib.callback.register('it_bridge:callback:getCitizenId', function(source)
+    return it.getCitizenId(source)
+end)
+
 exports('GetCitizenId', function(source)
     return it.getCitizenId(source)
 end)

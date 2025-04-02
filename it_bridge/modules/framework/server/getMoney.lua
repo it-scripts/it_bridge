@@ -46,6 +46,10 @@ function it.getMoney(source, moneyType)
     return 0
 end
 
+lib.callback.register('it_bridge:callback:getMoney', function(source, moneyType)
+    return it.getMoney(source, moneyType)
+end)
+
 exports('GetMoney', function(source, moneyType)
     return it.getMoney(source, moneyType)
 end)

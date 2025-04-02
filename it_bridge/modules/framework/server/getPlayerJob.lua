@@ -1,4 +1,6 @@
-function it.getPlayerJob(player)
+function it.getPlayerJob(source)
+
+    local player = it.getPlayer(source)
 
     if not player then
         lib.print.error('[getPlayerJob] No player object found')
@@ -70,6 +72,10 @@ function it.getPlayerJob(player)
     lib.print.error('[getPlayerJob] Failed to get player job')
     return nil
 end
+
+lib.callback.register('it_bridge:callback:getPlayerJob', function(source)
+    return it.getPlayerJob(source)
+end)
 
 exports('GetPlayerJob', function(player)
     return it.getPlayerJob(player)
