@@ -39,9 +39,9 @@ function it.hasItem(source, item, amount, metadata)
     end
 
     if it.inventory == Inventories.OX then
-        local itemData = ox_inventory:GetItem(source, item, metadata or nil, false)
-        if itemData then
-            if itemData.count >= amount then return true else return false end
+        local count = ox_inventory:GetItem(source, item, metadata or nil, true)
+        if count then
+            if count >= amount then return true else return false end
         end
         it.print.error('[hasItem] - Unable to get the item data. Please contact the developer.')
         return false
