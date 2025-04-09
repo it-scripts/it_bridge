@@ -23,7 +23,7 @@ jobs:
           echo "VERSION=v$VERSION" >> $GITHUB_ENV
 
       - name: Create ZIP Archive
-        run: zip -r "[it_bridge_pack].zip" . -x "*.git*"
+        run: zip -r "it_bridge_pack.zip" . -x "*.git*"
 
       - name: Get Previous Tag
         id: prev_tag
@@ -53,7 +53,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          gh release create "${{ env.VERSION }}" "[it_bridge_pack].zip" \
+          gh release create "${{ env.VERSION }}" "it_bridge_pack.zip" \
             --repo ${{ github.repository }} \
             --title "Release ${{ env.VERSION }}" \
             --notes-file changelog.md
