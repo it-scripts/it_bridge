@@ -5,7 +5,7 @@ games {'gta5'}
 
 name 'it_bridge'
 author '@allroundjonu'
-version '1.0.4'
+version '1.0.5'
 
 identifier 'it_bridge'
 
