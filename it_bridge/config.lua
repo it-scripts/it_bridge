@@ -64,6 +64,7 @@ Config.Interactions = AUTO_DETECT
         * Notifications.OX: ox_lib,
         * Notifications.ESX_NOTIFY: esx_notify,
         * Notifications.QBCORE: qb-core,
+        * Notifications.QBOX: qbx_core,
         * Notifications.ESX: es_extended,
         * Notifications.MYTHIC: mythic_notify,
         * Notifications.OKOK: okokNotify,

@@ -3,7 +3,7 @@ function it.sendNotification(title, msg, time, type, sound)
 
     if it.notify == Notifications.BRUTAL then
         exports['brutal_notify']:SendAlert(title, msg, time, type, sound)
-    elseif it.notify == Notifications.OX then
+    elseif it.notify == Notifications.OX or Notifications.QBOX then
         lib.notify({
             title = title,
             description = msg,

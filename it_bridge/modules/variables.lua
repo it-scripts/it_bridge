@@ -46,6 +46,7 @@ Notifications = {
     OX = 'ox_lib',
     ESX_NOTIFY = 'esx_notify',
     QBCORE = 'qb-core',
+    QBOX = 'qbx_core',
     ESX = 'es_extended',
     MYTHIC = 'mythic_notify',
     OKOK = 'okokNotify',
