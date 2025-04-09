@@ -24,7 +24,8 @@ function it.getPlayers()
     end
 
     if it.framework == Framework.NDCore then
-        local players = CoreObject.getPlayers()
+        local players = exports['ND_Core']:getPlayers()
+        --local players = CoreObject.getPlayers()
         if players then
             return players
         end

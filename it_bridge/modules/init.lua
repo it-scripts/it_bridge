@@ -39,11 +39,13 @@ local function detectFramework()
 
     local function detectNDCore()
         if GetResourceState('ND_Core') ~= 'missing' then
-            local ndCore = exports['ND_Core']:GetCoreObject()
+            it.framework = Framework.NDCore
+            return Framework.NDCore
+            --[[ local ndCore = exports['ND_Core']:GetCoreObject()
             if ndCore then
                 it.framework = Framework.NDCore
                 return ndCore
-            end
+            end ]]
         end
     end
 
@@ -344,6 +346,13 @@ local function detectNotify()
         end
     end
 
+    local function detectQBOX()
+        if GetResourceState('qbx_core') ~= 'missing' then
+            it.notify = Notifications.QBOX
+            return Notifications.QBOX
+        end
+    end
+
     local function detectESX()
         if GetResourceState('es_extended') ~= 'missing' then
             it.notify = Notifications.ESX
@@ -366,7 +375,7 @@ local function detectNotify()
     end
 
     if Config.Notifications == AUTO_DETECT then
-        local notify = detectBRUTAL() or detectPNOTIFY() or detectMYTHIC() or detectOKOK() or detectESX_NOTIFY() or detectESX() or detectQBCORE() or detectOX() or STANDALONE
+        local notify = detectBRUTAL() or detectPNOTIFY() or detectMYTHIC() or detectOKOK() or detectESX_NOTIFY() or detectESX() or detectQBOX() or detectQBCORE() or detectOX() or STANDALONE
         if notify == STANDALONE then
             it.print.warn('[it_bridge] No notify was detected, you will need to integrate it!')
             return

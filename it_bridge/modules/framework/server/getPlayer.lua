@@ -25,7 +25,8 @@ function it.getPlayer(source)
     end
 
     if it.framework == Framework.NDCore then
-        local player = CoreObject.getPlayer(source)
+        local player = exports['ND_Core']:getPlayer(source)
+        --local player = CoreObject.getPlayer(source)
         if player then
             return player
         end
