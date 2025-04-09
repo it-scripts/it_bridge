@@ -48,7 +48,7 @@ local function checkResourceVersion(err, responseText, headers)
         return
     end
 
-    if Config.MinimizeStartup == true then
+    if not Config.MinimizeStartup then
         print('^5═════════════════════════════════════════════════════════════^7')
         print('^6██╗████████╗     ██████╗ ██████╗ ██╗██████╗  ██████╗ ███████╗^7')
         print('^6██║╚══██╔══╝     ██╔══██╗██╔══██╗██║██╔══██╗██╔════╝ ██╔════╝^7')
