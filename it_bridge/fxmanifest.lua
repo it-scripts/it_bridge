@@ -5,7 +5,7 @@ games {'gta5'}
 
 name 'it_bridge'
 author '@allroundjonu'
-version '1.0.5'
+version '1.0.6'
 
 identifier 'it_bridge'
 
@@ -25,6 +25,7 @@ client_scripts {
 }
 
 server_scripts {
+    '@oxmysql/lib/MySQL.lua',
     'modules/versionCheck.lua',
     'modules/**/server.lua',
     'modules/**/server/*.lua',
@@ -39,5 +40,6 @@ escrow_ignore {
 dependencies {
     '/server:7290',
     '/onesync',
-    'ox_lib'
+    'ox_lib',
+    'oxmysql',
 }
