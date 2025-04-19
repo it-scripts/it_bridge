@@ -28,9 +28,9 @@ function it.getItemCount(source, item, metadata)
         local Player = CoreObject.Functions.GetPlayer(source)
         if not Player then it.print.error('[getItemCount] - Unable to load Playerdata') return 0 end
         local count = 0
-        for _, item in pairs(Player.PlayerData.items) do
-            if item.name == item then
-                count = item.amount
+        for _, inventoryItem in pairs(Player.PlayerData.items) do
+            if inventoryItem.name == item then
+                count = inventoryItem.amount
                 break
             end
         end
