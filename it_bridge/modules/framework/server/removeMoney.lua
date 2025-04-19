@@ -1,5 +1,5 @@
 function it.removeMoney(source, moneyType, amount, reason)
-    if not reason then reason = "Money removed by it_lib" end
+    if not reason then reason = "Money removed by it_bridge" end
 
     local Player = it.getPlayer(source)
     if not Player then

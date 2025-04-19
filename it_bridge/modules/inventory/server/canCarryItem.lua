@@ -76,7 +76,7 @@ function it.canCarryItem(source, item, amount)
     return false
 end
 
-lib.callback.register('it_lib:callback:canCarryItem', function(source, item, amount)
+lib.callback.register('it_bridge:callback:canCarryItem', function(source, item, amount)
     return it.canCarryItem(source, item, amount)
 end)
 

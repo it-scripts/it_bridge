@@ -23,7 +23,7 @@ function it.sendNotification(title, msg, time, type, sound)
     end
 end
 
-RegisterNetEvent('it_lib:client:notify', function(title, msg, time, type, sound)
+RegisterNetEvent('it_bridge:client:notify', function(title, msg, time, type, sound)
     it.sendNotification(title, msg, time, type, sound)
 end)
 
