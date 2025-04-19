@@ -41,7 +41,7 @@ function it.removeItem(source, item, amount, metadata)
 
     if it.inventory == Inventories.CODEM then
         local currentItemCount = it.getItemCount(source, item, metadata or nil)
-        exports['codem-inventory']:RemoveItem(source, item, amount, metadata or nil)
+        exports['codem-inventory']:RemoveItem(source, item, amount)
         local newCount = it.getItemCount(source, item, metadata or nil)
         if newCount <= currentItemCount - amount then
             return true
