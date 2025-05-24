@@ -114,6 +114,13 @@ local function detectInventory()
         end
     end
 
+    local function detectRc2()
+        if GetResourceState('Rc2-inventory') ~= 'missing' then
+            it.inventory = Inventories.RC2
+            return Inventories.RC2
+        end
+    end
+
     local function detectQS()
         if GetResourceState('qs-inventory') ~= 'missing' then
             it.inventory = Inventories.QS
@@ -157,7 +164,7 @@ local function detectInventory()
     end
 
     if Config.Inventories == AUTO_DETECT then
-        local inventory = detectPS() or detectQS() or detectOX() or detectCODEM() or detectORIGEN() or detectESX() or detectQB() or STANDALONE
+        local inventory = detectPS() or detectRc2() or detectQS() or detectOX() or detectCODEM() or detectORIGEN() or detectESX() or detectQB() or STANDALONE
         if inventory == STANDALONE then
             it.print.warn('[it_bridge] No inventory was detected, you will need to integrate it!')
             return

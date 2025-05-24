@@ -36,6 +36,7 @@ Config.FrameworkAdminGroups = {
         * Inventories.OX: ox_inventory,
         * Inventories.CODEM: codem-inventory
         * Inventories.ORIGEN: origen-inventory
+        * Inventories.Rc2: Rv2-inventory
 ]]
 
 Config.Inventories = AUTO_DETECT
@@ -46,6 +47,7 @@ Config.InventoryImgPath = {
     [Inventories.OX]   = "ox_inventory/web/images/",
     [Inventories.CODEM] = "codem-inventory/html/images/",
     [Inventories.ORIGEN] = "origen_inventory/html/images/",
+    [Inventories.Rc2] = "Rc2-inventory/html/images/",
 }
 
 --[[

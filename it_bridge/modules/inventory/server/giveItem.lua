@@ -25,6 +25,10 @@ function it.giveItem(source, item, amount, metadata)
         return exports['ps-inventory']:AddItem(source, item, amount, false, false, 'Item added by it_bridge')
     end
 
+    if it.inventory == Inventories.RC2 then
+        return exports['Rc2-inventory']:AddItem(source, item, amount, nil, nil)
+    end
+
     if it.inventory == Inventories.QS then
         local currentItemCount = it.getItemCount(source, item, metadata or {})
         exports['qs-inventory']:AddItem(source, item, amount, nil, metadata or {})

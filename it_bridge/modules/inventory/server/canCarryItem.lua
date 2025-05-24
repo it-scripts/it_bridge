@@ -52,6 +52,37 @@ function it.canCarryItem(source, item, amount)
         return true
     end
 
+    if it.inventory == Inventories.RC2 then
+        local Player = CoreObject.Functions.GetPlayer(source)
+        local itemData = CoreObject.Shared.Items[item:lower()]
+        if not itemData then it.print.error('[canCarryItem] - No itemData Found!') return true end
+
+        -- Get Config Table from the ps-inventory config.lua file
+        local rc2ConfigFile = LoadResourceFile('Rc2-inventory', 'config.lua')
+        local rc2Config = json.decode(rc2ConfigFile)
+        
+        local inventory, items
+        if Player then
+            inventory = {
+                maxWeight = rc2Config.MaxInventoryWeight,
+                slots = rc2Config.MaxInventorySlots,
+            }
+            items = Player.PlayerData.items
+        end
+
+        if not inventory then
+            it.print.error('[canCarryItem] - Unable to load the player inventory. Please contact the developer.')
+            return true
+        end
+
+        local weight = itemData.weight * amount
+        local totalWeight = exports['Rc2-inventory']:GetTotalWeight(items) + weight
+        if totalWeight > inventory.maxWeight then
+            return false
+        end
+        return true
+    end
+
     if it.inventory == Inventories.QS then
         local canCarryItem = exports['qs-inventory']:CanCarryItem(source, item, amount)
         if canCarryItem then return true else return false end

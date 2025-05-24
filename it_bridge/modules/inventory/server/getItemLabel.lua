@@ -13,7 +13,7 @@ function it.getItemLabel(itemName)
         if item then return item.label end
     end
 
-    if it.inventory == Inventories.PS then
+    if it.inventory == Inventories.PS or it.inventory == Inventories.RC2 then
         local item = CoreObject.Shared.Items[itemName]
         if item then return item.label end
     end

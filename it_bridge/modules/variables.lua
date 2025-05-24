@@ -33,6 +33,7 @@ Inventories = {
     OX = 'ox_inventory',
     CODEM = 'codem-inventory',
     ORIGEN = 'origen_inventory',
+    RC2 = 'Rc2-inventory',
 }
 
 Interactions = {

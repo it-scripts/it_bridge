@@ -29,6 +29,11 @@ function it.hasItem(source, item, amount, metadata)
         if hasItem then return true else return false end
     end
 
+    if it.inventory == Inventories.RC2 then
+        local hasItem = exports['Rc2-inventory']:HasItem(source, item, amount)
+        if hasItem then return true else return false end
+    end
+
     if it.inventory == Inventories.QS then
         local totalAmount = exports['qs-inventory']:GetItemTotalAmount(source, item)
         if totalAmount  then

@@ -24,7 +24,7 @@ function it.getItemCount(source, item, metadata)
         if itemCount then return itemCount end
     end
 
-    if it.inventory == Inventories.PS then
+    if it.inventory == Inventories.PS or it.inventory == Inventories.RC2 then
         local Player = CoreObject.Functions.GetPlayer(source)
         if not Player then it.print.error('[getItemCount] - Unable to load Playerdata') return 0 end
         local count = 0
