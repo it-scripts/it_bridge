@@ -21,11 +21,11 @@ function it.removeItem(source, item, amount, metadata)
         return exports['qb-inventory']:RemoveItem(source, item, amount)
     end
 
-    if it.inventory == Inventories.RC2 then
+    if it.inventory == Inventories.PS then
         return exports['ps-inventory']:RemoveItem(source, item, amount)
     end
 
-    if it.inventory == Inventories.PS then
+    if it.inventory == Inventories.RC2 then
         return exports['Rc2-inventory']:RemoveItem(source, item, amount)
     end
 
