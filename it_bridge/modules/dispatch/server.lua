@@ -97,6 +97,38 @@ function it.sendDisptach(playerId, disptachData)
         end
     end
 
+    if it.dispatch == Dispatches.PIOTREQ then
+
+        local pitoreqJobs = {}
+        for _, jobName in pairs(disptachData.jobs) do
+            pitoreqJobs[jobName] = 0
+        end
+
+        exports['piotreq_gpt']:SendAlert(playerId --[[ SET PLAYER ID HERE ]], {
+            title = disptachData.title,
+            code = disptachData.callCode.code,
+            coords = vector3(disptachData.coords.x, disptachData.coords.y, disptachData.coords.z),
+            icon = 'fa-solid fa-mask',
+            jobs = pitoreqJobs, -- jobs to send the dispatch to
+            blip = { -- optional
+                scale = disptachData.blip.scale,
+                sprite = disptachData.blip.sprite,
+                category = disptachData.blip.category or 1, -- default 1
+                color = disptachData.blip.colour or 1, -- default 1
+                hidden = false, -- default false (hidden on legend)
+                priority = 5, -- default 5
+                short = true, -- as short range? default true
+                alpha = 200, -- default 255
+                name = disptachData.blip.text or 'Dispatch', -- default 'Dispatch'
+            },
+            type = disptachData.type or 'normal', -- default normal
+            canAnswer = disptachData.canAnswer or false, -- default false
+            maxOfficers = disptachData.maxOfficers or 4, -- default 4
+            time = disptachData.time or 10,-- 10 minutes, default 5
+            notifyTime = disptachData.notifyTime or 8000, -- 8 seconds, default 7
+        })
+    end
+
     if it.dispatch == STANDALONE then
         -- TODO: Here you can add your own dispatch system
     end

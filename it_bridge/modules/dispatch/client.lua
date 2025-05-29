@@ -42,13 +42,18 @@ function it.sendDisptach(disptachData)
         TriggerServerEvent('it_bridge:server:sendDispatch', disptachData)
     end
 
-
     if it.disptach == Dispatches.ORIGEN then
+        TriggerServerEvent('it_bridge:server:sendDispatch', disptachData)
+    end
+
+    if it.dispatch == Dispatches.PIOTREQ then
         TriggerServerEvent('it_bridge:server:sendDispatch', disptachData)
     end
 end
 
-RegisterNetEvent('it_bridge:client:sendDispatch', it.sendDisptach)
+RegisterNetEvent('it_bridge:client:sendDispatch', function(disptachData)
+    it.sendDisptach(disptachData)
+end)
 
 exports('SendDisptach', function(disptachData)
     it.sendDisptach(disptachData)
