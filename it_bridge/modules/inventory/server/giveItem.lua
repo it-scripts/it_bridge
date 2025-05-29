@@ -43,6 +43,11 @@ function it.giveItem(source, item, amount, metadata)
         return added
     end
 
+    if it.inventory == Inventories.TGIANN then
+        local added = exports["tgiann-inventory"]:AddItem(source, item, amount, nil, metadata)
+        return added
+    end
+
     if it.inventory == Inventories.CODEM then
         local currentItemCount = it.getItemCount(source, item, metadata or nil)
         exports['codem-inventory']:AddItem(source, item, amount, metadata or nil)

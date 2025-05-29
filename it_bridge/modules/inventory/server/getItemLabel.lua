@@ -34,6 +34,11 @@ function it.getItemLabel(itemName)
         end
     end
 
+    if it.inventory == Inventories.TGIANN then
+        local itemLabel = exports["tgiann-inventory"]:GetItemLabel(itemName)
+        return itemLabel or itemName
+    end
+
     if it.inventory == Inventories.CODEM then
         local itemLabel = exports['codem-inventory']:GetItemLabel(itemName)
         if itemLabel then return itemLabel end

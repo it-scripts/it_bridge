@@ -93,6 +93,11 @@ function it.canCarryItem(source, item, amount)
         if canCarryItem then return true else return false end
     end
 
+    if it.inventory == Inventories.TGIANN then
+        local canCarryItem = exports['tgiann-inventory']:CanCarryItem(source, item, amount)
+        if canCarryItem then return true else return false end
+    end
+
     if it.inventory == Inventories.CODEM then
         -- TODO: Add the function to check if the player can carry the item
         return true

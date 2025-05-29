@@ -16,6 +16,26 @@ function it.canCarryItems(src, itemList)
         return canCarry
     end
 
+    if it.inventory == Inventories.TGIANN then
+        local totalWeight = 0
+        for item, amount in pairs(itemList) do
+            local itemData = exports['tgiann-inventory']:Items(item)
+            if itemData then
+                totalWeight = totalWeight + (itemData.weight * amount)
+                if Config.Debug then
+                    lib.print.info('Item: ' .. item .. ' Weight: ' .. itemData.weight .. ' Amount: ' .. amount)
+                    lib.print.info('Total Weight: ' .. totalWeight)
+                end
+            end
+        end
+        local freeWeight = exports['tgiann-inventory']:GetFreeWeight(src)
+        if freeWeight >= totalWeight then
+            return true
+        else
+            return false
+        end
+    end
+
     if it.inventory == Inventories.ORIGEN then
         local playerInventoryData = exports.origen_inventory:getInventory(src)
         local currentMaxWeight = playerInventoryData.maxWeight

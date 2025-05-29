@@ -47,6 +47,11 @@ function it.getItemCount(source, item, metadata)
         if itemData then return itemData.count end
     end
 
+    if it.inventory == Inventories.TGIANN then
+       local itemCount = exports['tgiann-inventory']:GetItemCount(source, item)
+        if itemCount then return itemCount else return 0 end
+    end
+
     if it.inventory == Inventories.CODEM then
         local itemCount = exports['codem-inventory']:GetItemsTotalAmount(source, item)
         if itemCount then return itemCount else return 0 end

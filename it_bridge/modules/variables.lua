@@ -13,7 +13,7 @@ cache = {
     version = GetResourceMetadata(it.name, 'version', 0),
 }
 
-CURRENT_VERSION = '1.0.6'
+CURRENT_VERSION = '1.0.7'
 
 STANDALONE = 'standalone'
 AUTO_DETECT = 'auto-detect'
@@ -34,6 +34,7 @@ Inventories = {
     CODEM = 'codem-inventory',
     ORIGEN = 'origen_inventory',
     RC2 = 'Rc2-inventory',
+    TGIANN = 'tgiann-inventory',
 }
 
 Interactions = {
@@ -75,5 +76,6 @@ Dispatches = {
     CODEM = 'codem_dispatch',
     LOVE_SCRIPTS = 'emergency_dispatch',
     ORIGEN = 'origen_police',
+    PIOTREQ = 'piotreq_gpt',
     NONE = nil,
 }

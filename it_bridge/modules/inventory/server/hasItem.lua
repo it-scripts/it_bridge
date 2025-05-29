@@ -52,6 +52,11 @@ function it.hasItem(source, item, amount, metadata)
         return false
     end
 
+    if it.inventory == Inventories.TGIANN then
+        local hasItem = exports['tgiann-inventory']:HasItem(source, item, amount)
+        if hasItem then return true else return false end
+    end
+
     if it.inventory == Inventories.CODEM then
         local hasItem = exports['codem-inventory']:GetItemsTotalAmount(source, item)
         if hasItem then

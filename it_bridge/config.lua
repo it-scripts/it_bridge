@@ -36,7 +36,8 @@ Config.FrameworkAdminGroups = {
         * Inventories.OX: ox_inventory,
         * Inventories.CODEM: codem-inventory
         * Inventories.ORIGEN: origen-inventory
-        * Inventories.Rc2: Rv2-inventory
+        * Inventories.RC2: Rc2-inventory
+        * Inventories.TGIANN: tgiann-inventory,
 ]]
 
 Config.Inventories = AUTO_DETECT
@@ -47,7 +48,8 @@ Config.InventoryImgPath = {
     [Inventories.OX]   = "ox_inventory/web/images/",
     [Inventories.CODEM] = "codem-inventory/html/images/",
     [Inventories.ORIGEN] = "origen_inventory/html/images/",
-    [Inventories.Rc2] = "Rc2-inventory/html/images/",
+    [Inventories.RC2] = "Rc2-inventory/html/images/",
+    [Inventories.TGIANN] = "inventory_images/images/",
 }
 
 --[[
@@ -109,6 +111,7 @@ Config.Menus = AUTO_DETECT
         * Dispatches.CODEM, codem_dispatch
         * Dispatches.LOVE_SCRIPTS, emergency_dispatch
         * Dispatches.ORIGEN, origen_police
+        * Dispatches.PIOTREQ, piotreq_gpt
         * Dispatches.NONE: no dispatch resource found.
 ]]
 

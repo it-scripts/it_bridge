@@ -121,6 +121,13 @@ local function detectInventory()
         end
     end
 
+    local function detectTGIANN()
+        if GetResourceState('tgiann-inventory') ~= 'missing' then
+            it.inventory = Inventories.TGIANN
+            return Inventories.TGIANN
+        end
+    end
+
     local function detectQS()
         if GetResourceState('qs-inventory') ~= 'missing' then
             it.inventory = Inventories.QS
@@ -164,7 +171,7 @@ local function detectInventory()
     end
 
     if Config.Inventories == AUTO_DETECT then
-        local inventory = detectPS() or detectRc2() or detectQS() or detectOX() or detectCODEM() or detectORIGEN() or detectESX() or detectQB() or STANDALONE
+        local inventory = detectPS() or detectRc2() or detectTGIANN() or detectQS() or detectOX() or detectCODEM() or detectORIGEN() or detectESX() or detectQB() or STANDALONE
         if inventory == STANDALONE then
             it.print.warn('[it_bridge] No inventory was detected, you will need to integrate it!')
             return
@@ -684,8 +691,15 @@ local function detectDispatch()
         end
     end
 
+    local function detectPIOTREQ()
+        if GetResourceState('piotreq_gpt') ~= 'missing' then
+            it.dispatch = Dispatches.PIOTREQ
+            return Dispatches.PIOTREQ
+        end
+    end
+
     if Config.Dispatches == AUTO_DETECT then
-        local dispatch = detectQS() or detectPS() or detectCD() or detectCORE() or detectCODEM() or detectLOVE_SCRIPTS() or detectORIGEN() or STANDALONE
+        local dispatch = detectQS() or detectPS() or detectCD() or detectCORE() or detectCODEM() or detectLOVE_SCRIPTS() or detectORIGEN() or detectPIOTREQ() or STANDALONE
         if dispatch == STANDALONE then
             it.print.warn('[it_bridge] No dispatch was detected, you will need to integrate it!')
             return

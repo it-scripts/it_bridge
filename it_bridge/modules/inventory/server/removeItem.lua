@@ -43,6 +43,11 @@ function it.removeItem(source, item, amount, metadata)
         return removed
     end
 
+    if it.inventory == Inventories.TGIANN then
+        local removed = exports["tgiann-inventory"]:RemoveItem(source, item, amount, nil, metadata)
+        return removed
+    end
+
     if it.inventory == Inventories.CODEM then
         local currentItemCount = it.getItemCount(source, item, metadata or nil)
         exports['codem-inventory']:RemoveItem(source, item, amount)
