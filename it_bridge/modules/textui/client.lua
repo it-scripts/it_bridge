@@ -44,6 +44,10 @@ function it.closeTextUI(text)
     if it.textui == TextUI.OX then
         local isOpen, uiText = lib.isTextUIOpen()
         if isOpen then
+            if text == nil then
+                lib.hideTextUI()
+                return true
+            end
             if uiText == text then
                 lib.hideTextUI()
                 return true

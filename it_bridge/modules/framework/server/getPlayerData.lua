@@ -31,9 +31,9 @@ function it.getPlayerData(source)
             sex = player.sex,
             source = player.source,
             money = {
-                cash = it.getMoney(source, MoneyTypes['cash'][Framework.ESX]),
-                bank = it.getMoney(source, MoneyTypes['bank'][Framework.ESX]),
-                black_money = it.getMoney(source, MoneyTypes['black_money'][Framework.ESX]),
+                cash = it.getMoney(source, 'cash'),
+                bank = it.getMoney(source, 'bank'),
+                black_money = it.getMoney(source, 'black_money'),
             }
         }
     end
@@ -48,9 +48,9 @@ function it.getPlayerData(source)
             sex = player.PlayerData.charinfo.gender,
             source = source,
             money = {
-                cash = it.getMoney(source, MoneyTypes['cash'][Framework.QBCore]),
-                bank = it.getMoney(source, MoneyTypes['bank'][Framework.QBCore]),
-                black_money = it.getMoney(source, MoneyTypes['black_money'][Framework.QBCore]),
+                cash = it.getMoney(source, 'cash'),
+                bank = it.getMoney(source, 'bank'),
+                black_money = it.getMoney(source, 'black_money'),
             }
         }
     end
@@ -65,9 +65,9 @@ function it.getPlayerData(source)
             sex = player.PlayerData.charinfo.gender,
             source = source,
             money = {
-                cash = it.getMoney(source, MoneyTypes['cash'][Framework.QBOX]),
-                bank = it.getMoney(source, MoneyTypes['bank'][Framework.QBOX]),
-                black_money = it.getMoney(source, MoneyTypes['black_money'][Framework.QBOX]),
+                cash = it.getMoney(source, 'cash'),
+                bank = it.getMoney(source, 'bank'),
+                black_money = it.getMoney(source, 'black_money'),
             }
         }
     end
@@ -82,9 +82,8 @@ function it.getPlayerData(source)
             sex = player.gender,
             source = player.source,
             money = {
-                cash = it.getMoney(source, MoneyTypes['cash'][Framework.NDCore]),
-                bank = it.getMoney(source, MoneyTypes['bank'][Framework.NDCore]),
-                black_money = it.getMoney(source, MoneyTypes['black_money'][Framework.NDCore]),
+                cash = it.getMoney(source, 'cash'),
+                bank = it.getMoney(source, 'bank'),
             }
         }
     end
